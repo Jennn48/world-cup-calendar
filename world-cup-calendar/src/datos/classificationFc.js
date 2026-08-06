@@ -1,5 +1,6 @@
 import anexoC from "./anexoC.js";
 import playOffMatches from "./playOff.js";
+import groups from "./grupos.js";
 
 const round32 = [
   { local: "1E", away: "third" },
@@ -77,7 +78,7 @@ const dates = {
   final: ["19/7"],
 };
 
-export function calculateRound16(table, groups,roundName){
+export function calculateRound16(table, groups, roundName) {
   //Encontrar los participantes(clasificados)
   const { classified, keyAnexoC } = getClassified(table, groups);
   //Encontrar quien juega contra quien
@@ -106,95 +107,24 @@ export function calculateRound16(table, groups,roundName){
   return [matchesRond16, crucesRond16];
 }
 
-export function calculateRound8(matchesRond16, groups, roundName){
-  let winners = getWinners(matchesRond16, groups, round16);
-  let matchesRond8 = generateMatches(
+export function calculateRound8(matchesRond16, roundName) {
+  //Obtener los 16 ganadores
+  let winners = getWinners(matchesRond16, round16);
+
+  const matchesRond8 = generateMatches(
     round16,
     winners,
     roundName,
     dates["round16"],
   );
+  
   const crucesRond8 = setPlayOffMatches(matchesRond8, winners, "r8");
 
   return [matchesRond8, crucesRond8];
+  
 }
 
-function calculateBrackets(table, groups, round, roundName) {
-  //Dieciseavos de final
-  //Encontrar los participantes(clasificados)
-  const { classified, keyAnexoC } = getClassified(table, groups);
-  //Encontrar quien juega contra quien
-  let keyAnexoCSorted = keyAnexoC
-    .split("")
-    .sort((a, b) => a.localeCompare(b))
-    .join("");
-  let thirdCruces = anexoC[keyAnexoCSorted];
-  let cruces = round32.map((match) => ({
-    ...match,
-    away:
-      match.away === "third"
-        ? thirdCruces.find((c) => c.includes(match.local)).slice(0, 2)
-        : match.away,
-  }));
-
-  const matchesRond16 = generateMatches(
-    cruces,
-    classified,
-    "Clasificación de 32",
-    dates["round32"],
-  );
-
-  const crucesRond16 = setPlayOffMatches(matchesRond16, classified, "r16");
-
-  let winners = getWinners(matchesRond16, groups, round16);
-  let matchesRond8 = generateMatches(
-    round16,
-    winners,
-    "Octavos de final",
-    dates["round16"],
-  );
-  const crucesRond8 = setPlayOffMatches(matchesRond8, winners, "r8");
-
-  winners = getWinners(matchesRond8, groups, quarterFinals);
-  let matchesQuarter = generateMatches(
-    quarterFinals,
-    winners,
-    "Cuartos de final",
-    dates["quarterFinals"],
-  );
-  const crucesQuarter = setPlayOffMatches(matchesQuarter, winners, "quarter");
-
-  winners = getWinners(matchesQuarter, groups, semiFinals);
-  let matchesSemi = generateMatches(
-    semiFinals,
-    winners,
-    "Semifinal",
-    dates["semiFinals"],
-  );
-  const crucesSemi = setPlayOffMatches(matchesSemi, winners, "semi");
-
-  winners = getWinners(matchesSemi, groups, final);
-  let matchesFinal = generateMatches(
-    final,
-    winners,
-    "Final",
-    dates["final"],
-  );
-  const crucesFinal = setPlayOffMatches(matchesFinal, winners, "final");;
-
-  return [
-    [...matchesRond16, ...matchesRond8, ...matchesQuarter, ...matchesSemi, ...matchesFinal],
-    {
-      ...crucesRond16,
-      ...crucesRond8,
-      ...crucesQuarter,
-      ...crucesSemi,
-      final: crucesFinal.finalLeft
-    },
-  ];
-}
-
-function getWinners(matches, groups, claves) {
+function getWinners(matches, claves) {
   const winners = {};
 
   claves.forEach((match) => {
@@ -297,4 +227,4 @@ function sortTeams(teams) {
   return teams;
 }
 
-export default calculateBrackets;
+// export default calculateBrackets;

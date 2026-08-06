@@ -10,23 +10,45 @@ function CardMatch(props) {
   });
 
   function setLocalScore(score) {
-    props.setMatches(prevMatches =>
-    prevMatches.map(match =>
-      match.local === props.localName && match.visitante === props.awayName
-        ? { ...match, localScore: score }
-        : match
-    )
-  );
+    if (props.group === "Clasificación de 32") {
+      props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        round16: prevMatches.round16.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, localScore: score }
+            : match,
+        ),
+      }));
+    } else {
+      return props.setMatches((prevMatches) =>
+        prevMatches.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, localScore: score }
+            : match,
+        ),
+      );
+    }
   }
 
   function setAwayScore(score) {
-    props.setMatches(prevMatches =>
-    prevMatches.map(match =>
-      match.local === props.localName && match.visitante === props.awayName
-        ? { ...match, visitanteScore: score }
-        : match
-    )
-  );
+    if (props.group === "Clasificación de 32") {
+      return props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        round16: prevMatches.round16.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, visitanteScore: score }
+            : match,
+        ),
+      }));
+    } else {
+      return props.setMatches((prevMatches) =>
+        prevMatches.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, visitanteScore: score }
+            : match,
+        ),
+      );
+    }
   }
 
   function findFlag(countryName) {

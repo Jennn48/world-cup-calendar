@@ -9,13 +9,17 @@ import Toggle from "./Toggle.jsx";
 import matchesData from "./datos/matches.js";
 import table from "./datos/tabla.js";
 import grupos from "./datos/grupos.js";
-import calculateBrackets, { calculateRound16, calculateRound8 } from "./datos/classificationFc.js";
+import { calculateRound16, calculateRound8 } from "./datos/classificationFc.js";
+import Round16 from "./Round16.jsx";
 
 function App() {
   const [playOffMatches, setPlayOffMatches] = useState({});
   const [toggle, setToggle] = useState("groups");
   const [matches, setMatches] = useState(matchesData);
-  const [matchesPlayOff, setMatchesPlayOff] = useState([]);
+  const [matchesPlayOff, setMatchesPlayOff] = useState({
+    round16: [],
+    round8: [],
+  });
   const [groups, setGroups] = useState(grupos);
 
   const tableData = calculateTable(matches);
@@ -116,10 +120,31 @@ function App() {
       groups,
       "Clasificación de 32",
     );
-    setMatchesPlayOff(nuevosMatches);
-    setPlayOffMatches(nuevosCruces);  
-    
+
+    setMatchesPlayOff((prevValues) => {
+      return { ...prevValues, round16: nuevosMatches };
+    });
+
+    setPlayOffMatches((prevValues) => {
+      return { ...prevValues, ...nuevosCruces };
+    });
   }, [matches]);
+
+  //Cuando se modifique round16 se modifica round8
+  useEffect(() => {
+    const [nuevosMatches, nuevosCruces] = calculateRound8(
+      matchesPlayOff.round16,
+      "Clasificación de 16",
+    );
+
+    setMatchesPlayOff((prevValues) => {
+      return { ...prevValues, round8: nuevosMatches };
+    });
+
+    setPlayOffMatches((prevValues) => {
+      return { ...prevValues, ...nuevosCruces };
+    });
+  }, [matchesPlayOff.round16]);
 
   return (
     <>

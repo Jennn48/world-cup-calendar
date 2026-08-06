@@ -29,7 +29,7 @@ function Matches(props) {
         <div className="title">
           <h2>Partidos dieciseavos de final</h2>
         </div>
-        {props.matchesPlayOff.map((match, index) => {
+        {Object.values(props.matchesPlayOff.round16).map((match, index) => {          
           return (
             <>
               <CardMatch
