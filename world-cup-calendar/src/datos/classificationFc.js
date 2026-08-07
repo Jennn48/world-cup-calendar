@@ -139,6 +139,24 @@ export function calculateQuarter(matchesRond8, roundName) {
   return [matchesQuarter, crucesQuarter];
 }
 
+export function calculateSemi(matchesQuarter, roundName) {
+  //Obtener los 8 ganadores
+  let winners = getWinners(matchesQuarter, semiFinals);
+
+  const matchesSemi = generateMatches(
+    semiFinals,
+    winners,
+    roundName,
+    dates["semiFinals"],
+  );
+  
+
+  const crucesSemi = setPlayOffMatches(matchesSemi, winners, "semi");
+  
+
+  return [matchesSemi, crucesSemi];
+}
+
 function getWinners(matches, claves) {
   const winners = {};
 
@@ -173,7 +191,7 @@ function setPlayOffMatches(matches, equipos, clave) {
   let playOffCruces = {};
   playOffCruces[`${clave}Left`] = [];
   playOffCruces[`${clave}Right`] = [];
-
+  
   matches.forEach(({ local, visitante, fecha }, index) => {
     let flagLocal = Object.values(equipos).find((e) => e.name === local).flag;
     let flagAway = Object.values(equipos).find(
