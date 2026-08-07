@@ -110,6 +110,7 @@ export function calculateRound16(table, groups, roundName) {
 export function calculateRound8(matchesRond16, roundName) {
   //Obtener los 16 ganadores
   let winners = getWinners(matchesRond16, round16);
+  
 
   const matchesRond8 = generateMatches(
     round16,
@@ -117,14 +118,34 @@ export function calculateRound8(matchesRond16, roundName) {
     roundName,
     dates["round16"],
   );
-  
-  const crucesRond8 = setPlayOffMatches(matchesRond8, winners, "r8");
 
-  return [matchesRond8, crucesRond8];
+  const crucesRond8 = setPlayOffMatches(matchesRond8, winners, "r8");
   
+  return [matchesRond8, crucesRond8];
 }
 
-function getWinners(matches, claves) {
+export function calculateQuarter(matchesRond8, roundName) {
+  //Obtener los 8 ganadores
+  
+  let winners = getWinners(matchesRond8, quarterFinals);
+  
+  
+
+  const matchesQuarter = generateMatches(
+    quarterFinals,
+    winners,
+    roundName,
+    dates["quarterFinals"],
+  );
+
+  console.log(matchesQuarter);
+  
+  const crucesQuarter = setPlayOffMatches(matchesQuarter, winners, "quarter");
+
+  return [matchesQuarter, crucesQuarter];
+}
+
+function getWinners(matches, claves) {  
   const winners = {};
 
   claves.forEach((match) => {
@@ -135,16 +156,22 @@ function getWinners(matches, claves) {
   let keys = Object.keys(winners);
 
   matches.forEach((match, index) => {
-    let winner =
-      match.localScore > match.visitanteScore ? match.local : match.visitante;
+    let winner;
+    if (match.localScore != null || match.visitanteScore != null) {
+      winner =
+        match.localScore > match.visitanteScore ? match.local : match.visitante;
+    } else {
+      
+      winner = match.local;
+    }
 
     const equipo = groups
       .flatMap((group) => group.equipos)
       .find((e) => e.nombre === winner);
-
+      
     winners[keys[index]] = { flag: equipo.bandera, name: equipo.nombre };
   });
-
+  
   return winners;
 }
 

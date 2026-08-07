@@ -9,7 +9,7 @@ import Toggle from "./Toggle.jsx";
 import matchesData from "./datos/matches.js";
 import table from "./datos/tabla.js";
 import grupos from "./datos/grupos.js";
-import { calculateRound16, calculateRound8 } from "./datos/classificationFc.js";
+import { calculateRound16, calculateRound8, calculateQuarter } from "./datos/classificationFc.js";
 import Round16 from "./Round16.jsx";
 
 function App() {
@@ -19,6 +19,9 @@ function App() {
   const [matchesPlayOff, setMatchesPlayOff] = useState({
     round16: [],
     round8: [],
+    quarter: [],
+    semi: [],
+    final: [],
   });
   const [groups, setGroups] = useState(grupos);
 
@@ -132,6 +135,7 @@ function App() {
 
   //Cuando se modifique round16 se modifica round8
   useEffect(() => {
+    if (!matchesPlayOff.round16?.length) return;
     const [nuevosMatches, nuevosCruces] = calculateRound8(
       matchesPlayOff.round16,
       "Clasificación de 16",
@@ -145,6 +149,26 @@ function App() {
       return { ...prevValues, ...nuevosCruces };
     });
   }, [matchesPlayOff.round16]);
+
+  useEffect(() => {
+    if (!matchesPlayOff.round8?.local !== "") return;
+    
+    console.log(matchesPlayOff);
+    
+    
+    const [nuevosMatches, nuevosCruces] = calculateQuarter(
+      matchesPlayOff.round8,
+      "Quarter Final",
+    );
+
+    setMatchesPlayOff((prevValues) => {
+      return { ...prevValues, quarter: nuevosMatches };
+    });
+
+    setPlayOffMatches((prevValues) => {
+      return { ...prevValues, ...nuevosCruces };
+    });
+  }, [matchesPlayOff.round8]);
 
   return (
     <>
