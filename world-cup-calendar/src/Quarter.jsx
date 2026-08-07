@@ -4,8 +4,7 @@ function Quarter(props) {
   return (
     <>
       <div className="round quarter">
-        {true? console.log("s",props.matches)
-         :props.matches.map((match) => (
+        {props.matches.map((match) => (
           <MatchBracket
             flagLocal={match.flagLocal}
             flagAway={match.flagAway}

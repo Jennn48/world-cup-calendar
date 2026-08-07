@@ -143,19 +143,14 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
-    console.log(matchesPlayOff);
     
   }, [matchesPlayOff.round16]);
 
   useEffect(() => {
-    if (!matchesPlayOff.round8?.local !== "") return;
-    
-    console.log(matchesPlayOff);
-    
-    
+    if (matchesPlayOff.round8 == null) return;
     const [nuevosMatches, nuevosCruces] = calculateQuarter(
       matchesPlayOff.round8,
-      "Quarter Final",
+      "Cuartos de Final",
     );
 
     setMatchesPlayOff((prevValues) => {
@@ -165,7 +160,10 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
+    
   }, [matchesPlayOff.round8]);
+
+  
 
   return (
     <>

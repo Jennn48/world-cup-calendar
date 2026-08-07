@@ -68,6 +68,28 @@ function Matches(props) {
             </>
           );
         })}
+
+        <div className="title">
+          <h2>Partidos Cuartos de final</h2>
+        </div>
+        {Object.values(props.matchesPlayOff.quarter).map((match, index) => {          
+          return (
+            <>
+              <CardMatch
+                key={index + 95}
+                id={index + 95}
+                group={match.grupo}
+                localName={match.local}
+                awayName={match.visitante}
+                localScore={match.localScore}
+                awayScore={match.visitanteScore}
+                date={match.fecha}
+                hour={match.hora}
+                setMatches={props.setMatchesPlayOff}
+              />
+            </>
+          );
+        })}
       </section>
     </>
   );

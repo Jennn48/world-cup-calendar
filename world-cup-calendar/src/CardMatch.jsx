@@ -28,6 +28,15 @@ function CardMatch(props) {
             : match,
         ),
       }));
+    } else if (props.group === "Cuartos de Final") {
+      props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        quarter: prevMatches.quarter.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, localScore: score }
+            : match,
+        ),
+      }));
     } else {
       return props.setMatches((prevMatches) =>
         prevMatches.map((match) =>
@@ -44,7 +53,7 @@ function CardMatch(props) {
       return props.setMatches((prevMatches) => ({
         ...prevMatches,
         round16: prevMatches.round16.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
+          match.visitante === props.awayName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
@@ -53,15 +62,24 @@ function CardMatch(props) {
       props.setMatches((prevMatches) => ({
         ...prevMatches,
         round8: prevMatches.round8.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
+          match.visitante === props.awayName && match.visitante === props.awayName
+            ? { ...match, visitanteScore: score }
+            : match,
+        ),
+      }));
+    }else if (props.group === "Cuartos de Final") {
+       props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        quarter: prevMatches.quarter.map((match) =>
+          match.visitante === props.awayName && match.visitante === props.awayName
+            ? { ...match, visitanteScore: score }
             : match,
         ),
       }));
     } else {
       return props.setMatches((prevMatches) =>
         prevMatches.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
+          match.visitante === props.awayName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
