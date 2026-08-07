@@ -46,6 +46,15 @@ function CardMatch(props) {
             : match,
         ),
       }));
+    } else if (props.group === "Final") {
+      props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        final: prevMatches.final.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, localScore: score }
+            : match,
+        ),
+      }));
     } else {
       return props.setMatches((prevMatches) =>
         prevMatches.map((match) =>
@@ -89,6 +98,15 @@ function CardMatch(props) {
        props.setMatches((prevMatches) => ({
         ...prevMatches,
         semi: prevMatches.semi.map((match) =>
+          match.visitante === props.awayName && match.visitante === props.awayName
+            ? { ...match, visitanteScore: score }
+            : match,
+        ),
+      }));
+    } else if (props.group === "Final") {
+       props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        final: prevMatches.final.map((match) =>
           match.visitante === props.awayName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,

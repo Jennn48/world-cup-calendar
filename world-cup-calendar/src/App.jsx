@@ -9,7 +9,7 @@ import Toggle from "./Toggle.jsx";
 import matchesData from "./datos/matches.js";
 import table from "./datos/tabla.js";
 import grupos from "./datos/grupos.js";
-import { calculateRound16, calculateRound8, calculateQuarter, calculateSemi } from "./datos/classificationFc.js";
+import { calculateRound16, calculateRound8, calculateQuarter, calculateSemi, calculateFinal } from "./datos/classificationFc.js";
 import Round16 from "./Round16.jsx";
 
 function App() {
@@ -179,6 +179,23 @@ function App() {
     });
     
   }, [matchesPlayOff.quarter]);
+ 
+  useEffect(() => {
+    if (matchesPlayOff.semi == null) return;
+    const [nuevosMatches, nuevosCruces] = calculateFinal(
+      matchesPlayOff.semi,
+      "Final",
+    );
+
+    setMatchesPlayOff((prevValues) => {
+      return { ...prevValues, final: nuevosMatches };
+    });
+
+    setPlayOffMatches((prevValues) => {
+      return { ...prevValues, ...nuevosCruces };
+    });
+    
+  }, [matchesPlayOff.semi]);
 
   
 

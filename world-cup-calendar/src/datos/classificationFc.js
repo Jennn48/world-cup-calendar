@@ -157,6 +157,24 @@ export function calculateSemi(matchesQuarter, roundName) {
   return [matchesSemi, crucesSemi];
 }
 
+export function calculateFinal(matchesSemi, roundName) {
+  //Obtener los 8 ganadores
+  let winners = getWinners(matchesSemi, final);
+
+  const matchFinal = generateMatches(
+    final,
+    winners,
+    roundName,
+    dates["final"],
+  );
+  
+  
+  const cruceFinal = {final: {flagLocal: winners["W29"].flag, flagAway: winners["W30"].flag, date: matchFinal[0].fecha}};
+  
+
+  return [matchFinal, cruceFinal];
+}
+
 function getWinners(matches, claves) {
   const winners = {};
 
