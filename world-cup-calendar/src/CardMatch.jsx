@@ -112,6 +112,15 @@ function CardMatch(props) {
             : match,
         ),
       }));
+    } else if (props.group === "Clasificación de 16") {
+      props.setMatches((prevMatches) => ({
+        ...prevMatches,
+        round8: prevMatches.round8.map((match) =>
+          match.local === props.localName && match.visitante === props.awayName
+            ? { ...match, localScore: score }
+            : match,
+        ),
+      }));
     } else {
       return props.setMatches((prevMatches) =>
         prevMatches.map((match) =>
