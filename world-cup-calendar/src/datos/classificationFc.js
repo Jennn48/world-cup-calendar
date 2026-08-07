@@ -165,6 +165,10 @@ function getWinners(matches, claves) {
       winner = match.local;
     }
 
+      if (match.localScore == null && match.visitanteScore == null){
+        winner =  match.local;
+      }
+
     const equipo = groups
       .flatMap((group) => group.equipos)
       .find((e) => e.nombre === winner);

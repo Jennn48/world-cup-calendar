@@ -17,11 +17,6 @@ function App() {
   const [toggle, setToggle] = useState("groups");
   const [matches, setMatches] = useState(matchesData);
   const [matchesPlayOff, setMatchesPlayOff] = useState({
-    round16: [],
-    round8: [],
-    quarter: [],
-    semi: [],
-    final: [],
   });
   const [groups, setGroups] = useState(grupos);
 
@@ -135,7 +130,7 @@ function App() {
 
   //Cuando se modifique round16 se modifica round8
   useEffect(() => {
-    if (!matchesPlayOff.round16?.length) return;
+    if (matchesPlayOff.round16 == null) return;
     const [nuevosMatches, nuevosCruces] = calculateRound8(
       matchesPlayOff.round16,
       "Clasificación de 16",
@@ -148,6 +143,8 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
+    console.log(matchesPlayOff);
+    
   }, [matchesPlayOff.round16]);
 
   useEffect(() => {
