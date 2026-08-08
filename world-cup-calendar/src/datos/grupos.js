@@ -22,7 +22,7 @@ const groups = [
     equipos: [
       { nombre: "Brasil", bandera: "https://flagsapi.com/BR/flat/64.png" },
       { nombre: "Marruecos", bandera: "https://flagsapi.com/MA/flat/64.png" },
-      { nombre: "Escocia", bandera: "/scotlanflag.webp" },
+      { nombre: "Escocia", bandera: "/images/scotlanflag.webp" },
       { nombre: "Haiti", bandera: "https://flagsapi.com/HT/flat/64.png" }
     ]
   },

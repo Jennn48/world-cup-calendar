@@ -1,4 +1,4 @@
-import copaMundial from './assets/copaMundial.png'
+import copaMundial from '/images/copaMundial.png'
 
 function Hero() {
   return (
