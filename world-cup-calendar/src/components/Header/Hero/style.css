@@ -1,0 +1,32 @@
+
+img {
+  width: 16px;
+}
+
+section.hero {
+  height: 80vh;
+  border-bottom: 1px solid darkgray;
+  padding: 100px 0;
+
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  line-height: normal;
+  color: goldenrod;
+  font-size: 500%;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 40px;
+
+  flex: 1;
+}
+
+section.hero img {
+  min-height: 400px;
+  min-width: 400px;
+  max-width: 400px;
+
+  flex: 2;
+}

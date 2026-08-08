@@ -1,0 +1,134 @@
+html * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+
+.round {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 660px) {
+  .cup {
+  width: 150px;
+}
+  section.hero {
+    flex-direction: column;
+    border-bottom: none;
+    margin-bottom: 20px;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+    padding: 0;
+  }
+
+  .hero img {
+    order: -1;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  section.group {
+    justify-content: center;
+  }
+
+  /* ********         Section MAtches */
+  section.matches {
+    justify-content: center;
+  }
+
+  div.card-match {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .group-name {
+    order: 3;
+  }
+
+  #teams {
+    flex-basis: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+    border-right: none;
+  }
+
+  /* todo el div */
+  #teams .team {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px 30px;
+    align-items: center;
+    justify-items: center;
+  }
+
+  /* primer equipo img puntuacion y nombre */
+  #teams div:first-child img {
+    grid-area: 1/1/2/2;
+    width: 70px;
+  }
+
+  #teams div:first-child .score {
+    grid-area: 1/2/2/3;
+  }
+
+  #teams div:first-child p:nth-child(2) {
+    grid-area: 2/1/3/2;
+  }
+
+
+  /* segundo equipo img puntuacion y nombre */
+  #teams div:nth-child(2) img {
+    grid-area: 1/2/2/3;
+    width: 70px;
+  }
+
+  #teams div:nth-child(2) .score {
+    grid-area: 1/1/2/2;
+  }
+
+  #teams div:nth-child(2) p:nth-child(2) {
+    grid-area: 2/2/3/3;
+  }
+
+  #date {
+    display: flex;
+    order: -1;
+    justify-self: auto;
+    align-self: auto;
+    gap: 10px;
+  }
+}

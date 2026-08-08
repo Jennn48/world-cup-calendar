@@ -1,0 +1,42 @@
+div.card-group {
+  width: 295px;
+  padding: 0 10px 10px 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(128, 128, 128, 0.6);
+  font-size: 0.9rem;
+  min-width: 270px;
+  color: darkgray;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.card-group table * {
+  margin: 1px 2px;
+}
+
+div.card-group table span {
+  font-weight: 900;
+  color: gray;
+}
+
+div.card-group caption {
+  text-align: left;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: black;
+  background-color: #fff;
+  padding: 5px;
+  max-width: fit-content;
+
+  position: relative;
+  left: 80px;
+  top: -20px;
+}
+
+div.card-group th {
+  color: darkgray;
+  text-align: left;
+  font-weight: lighter;
+}

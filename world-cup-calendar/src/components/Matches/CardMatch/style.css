@@ -1,0 +1,32 @@
+div.card-match {
+  width: 295px;
+  padding: 0 10px 10px 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(128, 128, 128, 0.6);
+  font-size: 0.9rem;
+  min-width: 270px;
+  color: darkgray;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 30px 30px 30px;
+}
+
+.group-name {
+  font-weight: lighter;
+
+  align-self: center;
+  grid-area: 1/1/2/3;
+}
+
+#teams {
+  border-right: 1px solid darkgray;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  grid-area: 2/1/4/2;
+}
+
+
