@@ -4,7 +4,7 @@ CREATE TABLE team (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     flag_url VARCHAR(100) NOT NULL,
-    code CHAR(2) NOT NULL UNIQUE,
+    code CHAR(2) NOT NULL UNIQUE
 );
 
 CREATE TABLE tournament (
@@ -89,7 +89,7 @@ CREATE TABLE match (
         CHECK (away_score IS NULL OR away_score >= 0),
 
     CONSTRAINT unique_match_number
-        UNIQUE (tournament_id, round_id, match_number)
+        UNIQUE (tournament_id, round, match_number)
 );
 
 CREATE TABLE match_team (
