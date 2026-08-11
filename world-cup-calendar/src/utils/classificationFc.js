@@ -149,10 +149,8 @@ export function calculateSemi(matchesQuarter, roundName) {
     roundName,
     dates["semiFinals"],
   );
-  
 
   const crucesSemi = setPlayOffMatches(matchesSemi, winners, "semi");
-  
 
   return [matchesSemi, crucesSemi];
 }
@@ -161,16 +159,15 @@ export function calculateFinal(matchesSemi, roundName) {
   //Obtener los 8 ganadores
   let winners = getWinners(matchesSemi, final);
 
-  const matchFinal = generateMatches(
-    final,
-    winners,
-    roundName,
-    dates["final"],
-  );
-  
-  
-  const cruceFinal = {final: {flagLocal: winners["W29"].flag, flagAway: winners["W30"].flag, date: matchFinal[0].fecha}};
-  
+  const matchFinal = generateMatches(final, winners, roundName, dates["final"]);
+
+  const cruceFinal = {
+    final: {
+      flagLocal: winners["W29"].flag,
+      flagAway: winners["W30"].flag,
+      date: matchFinal[0].fecha,
+    },
+  };
 
   return [matchFinal, cruceFinal];
 }
@@ -209,7 +206,7 @@ function setPlayOffMatches(matches, equipos, clave) {
   let playOffCruces = {};
   playOffCruces[`${clave}Left`] = [];
   playOffCruces[`${clave}Right`] = [];
-  
+
   matches.forEach(({ local, visitante, fecha }, index) => {
     let flagLocal = Object.values(equipos).find((e) => e.name === local).flag;
     let flagAway = Object.values(equipos).find(
@@ -229,34 +226,35 @@ function setPlayOffMatches(matches, equipos, clave) {
 }
 
 function getClassified(table, groups) {
-  let classified = {};
+  const classified = {};
   let keyAnexoC = "";
+  let third = [];
 
-  let first = table.filter((team) => team.position === 1);
-  let second = table.filter((team) => team.position === 2);
-  let third = table.filter((team) => team.position === 3);
-  third = sortTeams(third);
-  third.splice(8);
+  groups.forEach((group) => {
+    group.equipos.forEach((team, index) => {
+      const pos = index + 1;
+      if (pos > 3) return;
 
-  //Determinar classified
-  [
-    { teams: first, pos: 1 },
-    { teams: second, pos: 2 },
-    { teams: third, pos: 3 },
-  ].forEach(({ teams, pos }) => {
-    teams.forEach((team) => {
-      groups.forEach((group) => {
-        let equipo = group.equipos.find((e) => e.nombre === team.name);
-        let key = `${pos}${group.grupo}`;
-        if (equipo) {
-          classified[key] = { flag: equipo.bandera, name: team.name };
-          if (pos === 3) {
-            keyAnexoC += group.grupo;
-          }
-        }
-      });
+      if (pos === 3) {
+        let dataTable = table.find(td => td.name === team.nombre);
+        third.push({name: team.nombre, flag: team.flag, group: group.grupo, ...dataTable});
+      } else {
+        const key = `${pos}${group.grupo}`;
+        classified[key] = { flag: team.bandera, name: team.nombre };
+        
+      }
     });
   });
+
+  let qualifiedThird = sortTeams(third).slice(0,8);
+  qualifiedThird.forEach(team => {
+    const key = `3${team.group}`;
+        classified[key] = { flag: team.flag, name: team.name };
+        keyAnexoC += team.group;
+  });
+
+  console.log("ddddddddd",keyAnexoC);
+  
   return { classified, keyAnexoC };
 }
 

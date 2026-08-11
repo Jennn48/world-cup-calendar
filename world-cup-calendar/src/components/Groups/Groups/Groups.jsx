@@ -3,15 +3,15 @@ import Table from "../Table/Table.jsx";
 import "./style.css";
 
 function Groups(props) {
-  const [groups, setGroups] = useState(props.grupos);
-
+  console.log(props.groups);
+  
   return (
     <>
       <section className="group">
         <div className="nav-bar">
           <h2>Fase de Grupos</h2>
         </div>
-        {groups.map((g, index) => {
+        {props.groups.map((g, index) => {
           return (
             <Table
               key={index}

@@ -4,18 +4,7 @@ import Team from "../Team/Team.jsx";
 import "./style.css";
 
 function Table(props) {
-  const [tableData, setTableData] = useState(props.table);
-  // name: "Mexico", id: 1, position: 1, pj: 0, g: 0, e: 0, p: 0, ptos: 0, gf: 0, gc: 0, dg: 0
-  const equiposOrdenados = props.equipos
-    .map((team) => {
-      const datosTabla = tableData.find((td) => td.name === team.nombre);
-
-      return {
-        ...team, // nombre, bandera...
-        ...datosTabla, // pj, ptos, dg, position...
-      };
-    })
-    .sort((a, b) => a.position - b.position);
+  // name: "Mexico", id: 1, pj: 0, g: 0, e: 0, p: 0, ptos: 0, gf: 0, gc: 0, dg: 0    
   return (
     <>
       <div className="card-group">
@@ -37,13 +26,13 @@ function Table(props) {
             </tr>
           </thead>
           <tbody>
-            {equiposOrdenados.map((team) => {
+            {props.equipos.map((team, index) => {
               return (
                 <Team
                   key={team.id}
-                  name={team.nombre}
-                  flag={team.bandera}
-                  position={team.position}
+                  name={team.name}
+                  flag={team.flag}
+                  position={index + 1}
                   pj={team.pj}
                   g={team.g}
                   e={team.e}

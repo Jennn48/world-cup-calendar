@@ -1,35 +1,53 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import {Keys, Groups, Matches, Header, Hero, Toggle} from "../components/index.js";
-import {matchesData, table, grupos, calculateRound16, calculateRound8, calculateQuarter, calculateSemi, calculateFinal} from "../utils/index.js";
+import {
+  Keys,
+  Groups,
+  Matches,
+  Header,
+  Hero,
+  Toggle,
+} from "../components/index.js";
+import {
+  matchesData,
+  grupos,
+  calculateRound16,
+  calculateRound8,
+  calculateQuarter,
+  calculateSemi,
+  calculateFinal,
+} from "../utils/index.js";
 
 function App() {
   const [playOffMatches, setPlayOffMatches] = useState({});
   const [toggle, setToggle] = useState("groups");
   const [matches, setMatches] = useState(matchesData);
-  const [matchesPlayOff, setMatchesPlayOff] = useState({
-  });
+  const [matchesPlayOff, setMatchesPlayOff] = useState({});
   const [groups, setGroups] = useState(grupos);
 
   const tableData = calculateTable(matches);
-  {
-    groups.forEach(({ equipos }) => {
-      calculatePosition(equipos);
-    });
-  }
+  const classifiedGroups = groups.map((group) => ({
+  ...group,
+  equipos: calculatePosition(group.equipos, tableData),
+}));
 
   function calculateTable(matches) {
-    //Reinicio marcadores
-    table.forEach((team) => {
-      team.pj = 0;
-      team.gf = 0;
-      team.gc = 0;
-      team.dg = 0;
-      team.p = 0;
-      team.g = 0;
-      team.e = 0;
-      team.ptos = 0;
-    });
+    //Creo la variable table
+    const table = groups.flatMap(({ equipos }) =>
+      equipos.map((team) => ({
+        name: team.nombre,
+        flag: team.bandera,
+        pj: 0,
+        gf: 0,
+        gc: 0,
+        dg: 0,
+        p: 0,
+        g: 0,
+        e: 0,
+        ptos: 0,
+      })),
+    );
+
     matches.forEach((match) => {
       const { visitante, local, visitanteScore, localScore } = match;
       let tableLocal = table.find((team) => team.name === local);
@@ -66,6 +84,7 @@ function App() {
         }
       }
     });
+    
     return table;
   }
 
@@ -80,11 +99,8 @@ function App() {
 
     //Ordenar
     tableInfo = sortTeams(tableInfo);
+    
 
-    //Modificar position
-    tableInfo.forEach((item, index) => {
-      item.position = index + 1;
-    });
     return tableInfo;
   }
 
@@ -134,7 +150,6 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
-    
   }, [matchesPlayOff.round16]);
 
   useEffect(() => {
@@ -151,9 +166,8 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
-    
   }, [matchesPlayOff.round8]);
-  
+
   useEffect(() => {
     if (matchesPlayOff.quarter == null) return;
     const [nuevosMatches, nuevosCruces] = calculateSemi(
@@ -168,9 +182,8 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
-    
   }, [matchesPlayOff.quarter]);
- 
+
   useEffect(() => {
     if (matchesPlayOff.semi == null) return;
     const [nuevosMatches, nuevosCruces] = calculateFinal(
@@ -185,10 +198,7 @@ function App() {
     setPlayOffMatches((prevValues) => {
       return { ...prevValues, ...nuevosCruces };
     });
-    
   }, [matchesPlayOff.semi]);
-
-  
 
   return (
     <>
@@ -197,7 +207,7 @@ function App() {
 
       <Toggle onToggle={togglePosition} />
       {toggle === "groups" ? (
-        <Groups table={tableData} grupos={groups} />
+        <Groups table={tableData} groups={classifiedGroups} />
       ) : toggle === "matches" ? (
         <Matches
           matchesPlayOff={matchesPlayOff}
