@@ -1,10 +1,7 @@
-import { useState } from "react";
 import Table from "../Table/Table.jsx";
 import "./style.css";
 
 function Groups(props) {
-  console.log(props.groups);
-  
   return (
     <>
       <section className="group">
@@ -37,37 +34,3 @@ function Groups(props) {
 //   }
 
 export default Groups;
-
-{
-  /* <div class="card-group">
-        <table>
-            <caption>Grupo A</caption>
-          <tr>
-            <th>Equipo</th>
-            <th>PJ</th>
-            <th>G</th>
-            <th>E</th>
-            <th>P</th>
-            <th><span>Pts</span></th>
-            <th>GF</th>
-            <th>GC</th>
-            <th>DG</th>
-          </tr>
-          <tr>
-            <td class="team">
-                <p class="num">1</p>
-                <p class="flag"><img src="https://flagsapi.com/MX/flat/16.png"></p>
-                <p class="name"><span>Mexico</span></p>
-            </td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td><span>0</span></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-          </tr>
-        </table>
-      </div> */
-}

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Team from "../Team/Team.jsx";
 import "./style.css";
 

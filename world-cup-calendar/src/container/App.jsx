@@ -25,11 +25,30 @@ function App() {
   const [matchesPlayOff, setMatchesPlayOff] = useState({});
   const [groups, setGroups] = useState(grupos);
 
-  const tableData = calculateTable(matches);
+  let tableData = calculateTable(matches);
   const classifiedGroups = groups.map((group) => ({
-  ...group,
-  equipos: calculatePosition(group.equipos, tableData),
-}));
+    ...group,
+    equipos: calculatePosition(group.equipos, tableData),
+  }));
+
+  const bracketData = {
+    round16: getBracketData(matchesPlayOff.round16 ?? []),
+    round8: getBracketData(matchesPlayOff.round8 ?? []),
+    quarter: getBracketData(matchesPlayOff.quarter ?? []),
+    semi: getBracketData(matchesPlayOff.semi ?? []),
+    final: getBracketData(matchesPlayOff.final ?? []),
+  };
+  
+
+  function getBracketData(matches) {
+    return matches.map((match) => {
+      let flagLocal = groups.flatMap(({ equipos })=> equipos).find((equipo) => equipo.nombre === match.local).bandera;
+
+      let flagAway = groups.flatMap(({ equipos })=> equipos).find((equipo) => equipo.nombre === match.visitante).bandera;
+      
+      return { flagLocal, flagAway, date: match.fecha };
+    });
+  }
 
   function calculateTable(matches) {
     //Creo la variable table
@@ -84,7 +103,7 @@ function App() {
         }
       }
     });
-    
+
     return table;
   }
 
@@ -99,7 +118,6 @@ function App() {
 
     //Ordenar
     tableInfo = sortTeams(tableInfo);
-    
 
     return tableInfo;
   }
@@ -120,6 +138,7 @@ function App() {
 
   //Cruces
   useEffect(() => {
+    tableData = calculateTable(matches)
     const [nuevosMatches, nuevosCruces] = calculateRound16(
       tableData,
       groups,
@@ -216,7 +235,7 @@ function App() {
           setMatches={setMatches}
         />
       ) : (
-        <Keys matches={playOffMatches} />
+        <Keys matches={bracketData} realMatches={matchesPlayOff} />
       )}
     </>
   );

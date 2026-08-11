@@ -72,7 +72,7 @@ function CardMatch(props) {
       return props.setMatches((prevMatches) => ({
         ...prevMatches,
         round16: prevMatches.round16.map((match) =>
-          match.visitante === props.awayName && match.visitante === props.awayName
+          match.local === props.localName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
@@ -81,7 +81,7 @@ function CardMatch(props) {
       props.setMatches((prevMatches) => ({
         ...prevMatches,
         round8: prevMatches.round8.map((match) =>
-          match.visitante === props.awayName && match.visitante === props.awayName
+          match.local === props.localName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
@@ -90,7 +90,7 @@ function CardMatch(props) {
        props.setMatches((prevMatches) => ({
         ...prevMatches,
         quarter: prevMatches.quarter.map((match) =>
-          match.visitante === props.awayName && match.visitante === props.awayName
+          match.local === props.localName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
@@ -99,7 +99,7 @@ function CardMatch(props) {
        props.setMatches((prevMatches) => ({
         ...prevMatches,
         semi: prevMatches.semi.map((match) =>
-          match.visitante === props.awayName && match.visitante === props.awayName
+          match.local === props.localName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
@@ -108,7 +108,7 @@ function CardMatch(props) {
        props.setMatches((prevMatches) => ({
         ...prevMatches,
         final: prevMatches.final.map((match) =>
-          match.visitante === props.awayName && match.visitante === props.awayName
+          match.local === props.localName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),
@@ -125,7 +125,7 @@ function CardMatch(props) {
     } else {
       return props.setMatches((prevMatches) =>
         prevMatches.map((match) =>
-          match.visitante === props.awayName && match.visitante === props.awayName
+          match.local === props.localName && match.visitante === props.awayName
             ? { ...match, visitanteScore: score }
             : match,
         ),

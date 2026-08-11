@@ -4,7 +4,7 @@ import RightBracket from "../RightBracket/RightBracket.jsx";
 import "./style.css";
 
 
-function Keys(props) {
+function Keys(props) {  
   return (
     <>
       <section className="keys">
@@ -13,9 +13,9 @@ function Keys(props) {
         </div>
 
         <div className="bracket">
-          <LeftBracket r16={props.matches.r16Left} r8={props.matches.r8Left} quarter={props.matches.quarterLeft} semi={props.matches.semiLeft} />
-          <CenterBracket final={props.matches.final}/>
-          <RightBracket r16={props.matches.r16Right} r8={props.matches.r8Right} quarter={props.matches.quarterRight} semi={props.matches.semiRight}/>
+          <LeftBracket r16={props.matches.round16.slice(0,8)} r8={props.matches.round8.slice(0,8)} quarter={props.matches.quarter.slice(0,8)} semi={props.matches.semi.slice(0,8)} />
+          <CenterBracket final={props.matches.final[0]}/>
+          <RightBracket r16={props.matches.round16.slice(8)} r8={props.matches.round8.slice(8)} quarter={props.matches.quarter.slice(8)} semi={props.matches.semi.slice(8)}/>
         </div>
       </section>
     </>

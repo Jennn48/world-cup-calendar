@@ -1,5 +1,4 @@
 import anexoC from "./anexoC.js";
-import playOffMatches from "./playOff.js";
 import groups from "./grupos.js";
 
 const round32 = [
@@ -252,9 +251,6 @@ function getClassified(table, groups) {
         classified[key] = { flag: team.flag, name: team.name };
         keyAnexoC += team.group;
   });
-
-  console.log("ddddddddd",keyAnexoC);
-  
   return { classified, keyAnexoC };
 }
 
