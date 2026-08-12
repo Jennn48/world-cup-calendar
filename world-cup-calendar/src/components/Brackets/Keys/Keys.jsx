@@ -13,9 +13,9 @@ function Keys(props) {
         </div>
 
         <div className="bracket">
-          <LeftBracket r16={props.matches.round16.slice(0,8)} r8={props.matches.round8.slice(0,8)} quarter={props.matches.quarter.slice(0,8)} semi={props.matches.semi.slice(0,8)} />
+          <LeftBracket r16={props.matches.round16.slice(0,8)} r8={props.matches.round8.slice(0,4)} quarter={props.matches.quarter.slice(0,2)} semi={props.matches.semi.slice(0,1)} />
           <CenterBracket final={props.matches.final[0]}/>
-          <RightBracket r16={props.matches.round16.slice(8)} r8={props.matches.round8.slice(8)} quarter={props.matches.quarter.slice(8)} semi={props.matches.semi.slice(8)}/>
+          <RightBracket r16={props.matches.round16.slice(8)} r8={props.matches.round8.slice(4)} quarter={props.matches.quarter.slice(2)} semi={props.matches.semi.slice(1)}/>
         </div>
       </section>
     </>

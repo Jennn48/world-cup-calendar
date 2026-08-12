@@ -19,7 +19,6 @@ import {
 } from "../utils/index.js";
 
 function App() {
-  const [playOffMatches, setPlayOffMatches] = useState({});
   const [toggle, setToggle] = useState("groups");
   const [matches, setMatches] = useState(matchesData);
   const [matchesPlayOff, setMatchesPlayOff] = useState({});
@@ -107,7 +106,7 @@ function App() {
     return table;
   }
 
-  function calculatePosition(group) {
+  function calculatePosition(group, tableData) {
     let tableInfo = [];
     group.forEach((team) => {
       let tableTeam = tableData.find(
@@ -138,19 +137,14 @@ function App() {
 
   //Cruces
   useEffect(() => {
-    tableData = calculateTable(matches)
     const [nuevosMatches, nuevosCruces] = calculateRound16(
       tableData,
-      groups,
+      classifiedGroups,
       "Clasificación de 32",
     );
 
     setMatchesPlayOff((prevValues) => {
       return { ...prevValues, round16: nuevosMatches };
-    });
-
-    setPlayOffMatches((prevValues) => {
-      return { ...prevValues, ...nuevosCruces };
     });
   }, [matches]);
 
@@ -160,14 +154,11 @@ function App() {
     const [nuevosMatches, nuevosCruces] = calculateRound8(
       matchesPlayOff.round16,
       "Clasificación de 16",
+      classifiedGroups
     );
 
     setMatchesPlayOff((prevValues) => {
       return { ...prevValues, round8: nuevosMatches };
-    });
-
-    setPlayOffMatches((prevValues) => {
-      return { ...prevValues, ...nuevosCruces };
     });
   }, [matchesPlayOff.round16]);
 
@@ -176,14 +167,11 @@ function App() {
     const [nuevosMatches, nuevosCruces] = calculateQuarter(
       matchesPlayOff.round8,
       "Cuartos de Final",
+      classifiedGroups
     );
 
     setMatchesPlayOff((prevValues) => {
       return { ...prevValues, quarter: nuevosMatches };
-    });
-
-    setPlayOffMatches((prevValues) => {
-      return { ...prevValues, ...nuevosCruces };
     });
   }, [matchesPlayOff.round8]);
 
@@ -192,14 +180,11 @@ function App() {
     const [nuevosMatches, nuevosCruces] = calculateSemi(
       matchesPlayOff.quarter,
       "Semifinal",
+      classifiedGroups
     );
 
     setMatchesPlayOff((prevValues) => {
       return { ...prevValues, semi: nuevosMatches };
-    });
-
-    setPlayOffMatches((prevValues) => {
-      return { ...prevValues, ...nuevosCruces };
     });
   }, [matchesPlayOff.quarter]);
 
@@ -208,14 +193,11 @@ function App() {
     const [nuevosMatches, nuevosCruces] = calculateFinal(
       matchesPlayOff.semi,
       "Final",
+      classifiedGroups
     );
 
     setMatchesPlayOff((prevValues) => {
       return { ...prevValues, final: nuevosMatches };
-    });
-
-    setPlayOffMatches((prevValues) => {
-      return { ...prevValues, ...nuevosCruces };
     });
   }, [matchesPlayOff.semi]);
 

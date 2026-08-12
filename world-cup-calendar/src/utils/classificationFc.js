@@ -106,9 +106,9 @@ export function calculateRound16(table, groups, roundName) {
   return [matchesRond16, crucesRond16];
 }
 
-export function calculateRound8(matchesRond16, roundName) {
+export function calculateRound8(matchesRond16, roundName, groups) {
   //Obtener los 16 ganadores
-  let winners = getWinners(matchesRond16, round16);
+  let winners = getWinners(matchesRond16, round16, groups);
 
   const matchesRond8 = generateMatches(
     round16,
@@ -122,9 +122,9 @@ export function calculateRound8(matchesRond16, roundName) {
   return [matchesRond8, crucesRond8];
 }
 
-export function calculateQuarter(matchesRond8, roundName) {
+export function calculateQuarter(matchesRond8, roundName, groups) {
   //Obtener los 8 ganadores
-  let winners = getWinners(matchesRond8, quarterFinals);
+  let winners = getWinners(matchesRond8, quarterFinals, groups);
 
   const matchesQuarter = generateMatches(
     quarterFinals,
@@ -138,9 +138,9 @@ export function calculateQuarter(matchesRond8, roundName) {
   return [matchesQuarter, crucesQuarter];
 }
 
-export function calculateSemi(matchesQuarter, roundName) {
+export function calculateSemi(matchesQuarter, roundName, groups) {
   //Obtener los 8 ganadores
-  let winners = getWinners(matchesQuarter, semiFinals);
+  let winners = getWinners(matchesQuarter, semiFinals, groups);
 
   const matchesSemi = generateMatches(
     semiFinals,
@@ -154,9 +154,9 @@ export function calculateSemi(matchesQuarter, roundName) {
   return [matchesSemi, crucesSemi];
 }
 
-export function calculateFinal(matchesSemi, roundName) {
+export function calculateFinal(matchesSemi, roundName, groups) {
   //Obtener los 8 ganadores
-  let winners = getWinners(matchesSemi, final);
+  let winners = getWinners(matchesSemi, final, groups);
 
   const matchFinal = generateMatches(final, winners, roundName, dates["final"]);
 
@@ -171,7 +171,7 @@ export function calculateFinal(matchesSemi, roundName) {
   return [matchFinal, cruceFinal];
 }
 
-function getWinners(matches, claves) {
+function getWinners(matches, claves, groups) {
   const winners = {};
 
   claves.forEach((match) => {
@@ -193,9 +193,9 @@ function getWinners(matches, claves) {
 
     const equipo = groups
       .flatMap((group) => group.equipos)
-      .find((e) => e.nombre === winner);
+      .find((e) => e.name === winner);
 
-    winners[keys[index]] = { flag: equipo.bandera, name: equipo.nombre };
+    winners[keys[index]] = { flag: equipo.bandera, name: equipo.name };
   });
 
   return winners;
@@ -235,11 +235,11 @@ function getClassified(table, groups) {
       if (pos > 3) return;
 
       if (pos === 3) {
-        let dataTable = table.find(td => td.name === team.nombre);
-        third.push({name: team.nombre, flag: team.flag, group: group.grupo, ...dataTable});
+        let dataTable = table.find(td => td.name === team.name);
+        third.push({name: team.name, flag: team.flag, group: group.grupo, ...dataTable});
       } else {
         const key = `${pos}${group.grupo}`;
-        classified[key] = { flag: team.bandera, name: team.nombre };
+        classified[key] = { flag: team.flag, name: team.name };
         
       }
     });
