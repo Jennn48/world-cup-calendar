@@ -1007,6 +1007,492 @@ const matchTeams = [
     teamId: 37,
     source: null,
   },
+  // M73 - 2A vs 2B
+  {
+    id: 145,
+    matchId: 73,
+    slot: "home",
+    teamId: null,
+    source: "2A",
+  },
+  {
+    id: 146,
+    matchId: 73,
+    slot: "away",
+    teamId: null,
+    source: "2B",
+  },
+
+  // M74 - 1E vs mejor tercera ABCDF
+  {
+    id: 147,
+    matchId: 74,
+    slot: "home",
+    teamId: null,
+    source: "1E",
+  },
+  {
+    id: 148,
+    matchId: 74,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M75 - 1F vs 2C
+  {
+    id: 149,
+    matchId: 75,
+    slot: "home",
+    teamId: null,
+    source: "1F",
+  },
+  {
+    id: 150,
+    matchId: 75,
+    slot: "away",
+    teamId: null,
+    source: "2C",
+  },
+
+  // M76 - 1C vs 2F
+  {
+    id: 151,
+    matchId: 76,
+    slot: "home",
+    teamId: null,
+    source: "1C",
+  },
+  {
+    id: 152,
+    matchId: 76,
+    slot: "away",
+    teamId: null,
+    source: "2F",
+  },
+
+  // M77 - 1I vs mejor tercera CDFGH
+  {
+    id: 153,
+    matchId: 77,
+    slot: "home",
+    teamId: null,
+    source: "1I",
+  },
+  {
+    id: 154,
+    matchId: 77,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M78 - 2E vs 2I
+  {
+    id: 155,
+    matchId: 78,
+    slot: "home",
+    teamId: null,
+    source: "2E",
+  },
+  {
+    id: 156,
+    matchId: 78,
+    slot: "away",
+    teamId: null,
+    source: "2I",
+  },
+
+  // M79 - 1A vs mejor tercera CEFHI
+  {
+    id: 157,
+    matchId: 79,
+    slot: "home",
+    teamId: null,
+    source: "1A",
+  },
+  {
+    id: 158,
+    matchId: 79,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M80 - 1L vs mejor tercera EHIJK
+  {
+    id: 159,
+    matchId: 80,
+    slot: "home",
+    teamId: null,
+    source: "1L",
+  },
+  {
+    id: 160,
+    matchId: 80,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M81 - 1D vs mejor tercera BEFIJ
+  {
+    id: 161,
+    matchId: 81,
+    slot: "home",
+    teamId: null,
+    source: "1D",
+  },
+  {
+    id: 162,
+    matchId: 81,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M82 - 1G vs mejor tercera AEHIJ
+  {
+    id: 163,
+    matchId: 82,
+    slot: "home",
+    teamId: null,
+    source: "1G",
+  },
+  {
+    id: 164,
+    matchId: 82,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M83 - 2K vs 2L
+  {
+    id: 165,
+    matchId: 83,
+    slot: "home",
+    teamId: null,
+    source: "2K",
+  },
+  {
+    id: 166,
+    matchId: 83,
+    slot: "away",
+    teamId: null,
+    source: "2L",
+  },
+
+  // M84 - 1H vs 2J
+  {
+    id: 167,
+    matchId: 84,
+    slot: "home",
+    teamId: null,
+    source: "1H",
+  },
+  {
+    id: 168,
+    matchId: 84,
+    slot: "away",
+    teamId: null,
+    source: "2J",
+  },
+
+  // M85 - 1B vs mejor tercera EFGIJ
+  {
+    id: 169,
+    matchId: 85,
+    slot: "home",
+    teamId: null,
+    source: "1B",
+  },
+  {
+    id: 170,
+    matchId: 85,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M86 - 1J vs 2H
+  {
+    id: 171,
+    matchId: 86,
+    slot: "home",
+    teamId: null,
+    source: "1J",
+  },
+  {
+    id: 172,
+    matchId: 86,
+    slot: "away",
+    teamId: null,
+    source: "2H",
+  },
+
+  // M87 - 1K vs mejor tercera DEIJL
+  {
+    id: 173,
+    matchId: 87,
+    slot: "home",
+    teamId: null,
+    source: "1K",
+  },
+  {
+    id: 174,
+    matchId: 87,
+    slot: "away",
+    teamId: null,
+    source: "third",
+  },
+
+  // M88 - 2D vs 2G
+  {
+    id: 175,
+    matchId: 88,
+    slot: "home",
+    teamId: null,
+    source: "2D",
+  },
+  {
+    id: 176,
+    matchId: 88,
+    slot: "away",
+    teamId: null,
+    source: "2G",
+  }, // M89 - W74 vs W77
+  {
+    id: 177,
+    matchId: 89,
+    slot: "home",
+    teamId: null,
+    source: "W74",
+  },
+  {
+    id: 178,
+    matchId: 89,
+    slot: "away",
+    teamId: null,
+    source: "W77",
+  },
+
+  // M90 - W73 vs W75
+  {
+    id: 179,
+    matchId: 90,
+    slot: "home",
+    teamId: null,
+    source: "W73",
+  },
+  {
+    id: 180,
+    matchId: 90,
+    slot: "away",
+    teamId: null,
+    source: "W75",
+  },
+
+  // M91 - W76 vs W78
+  {
+    id: 181,
+    matchId: 91,
+    slot: "home",
+    teamId: null,
+    source: "W76",
+  },
+  {
+    id: 182,
+    matchId: 91,
+    slot: "away",
+    teamId: null,
+    source: "W78",
+  },
+
+  // M92 - W79 vs W80
+  {
+    id: 183,
+    matchId: 92,
+    slot: "home",
+    teamId: null,
+    source: "W79",
+  },
+  {
+    id: 184,
+    matchId: 92,
+    slot: "away",
+    teamId: null,
+    source: "W80",
+  },
+
+  // M93 - W83 vs W84
+  {
+    id: 185,
+    matchId: 93,
+    slot: "home",
+    teamId: null,
+    source: "W83",
+  },
+  {
+    id: 186,
+    matchId: 93,
+    slot: "away",
+    teamId: null,
+    source: "W84",
+  },
+
+  // M94 - W81 vs W82
+  {
+    id: 187,
+    matchId: 94,
+    slot: "home",
+    teamId: null,
+    source: "W81",
+  },
+  {
+    id: 188,
+    matchId: 94,
+    slot: "away",
+    teamId: null,
+    source: "W82",
+  },
+
+  // M95 - W86 vs W88
+  {
+    id: 189,
+    matchId: 95,
+    slot: "home",
+    teamId: null,
+    source: "W86",
+  },
+  {
+    id: 190,
+    matchId: 95,
+    slot: "away",
+    teamId: null,
+    source: "W88",
+  },
+
+  // M96 - W85 vs W87
+  {
+    id: 191,
+    matchId: 96,
+    slot: "home",
+    teamId: null,
+    source: "W85",
+  },
+  {
+    id: 192,
+    matchId: 96,
+    slot: "away",
+    teamId: null,
+    source: "W87",
+  },// M97 - W89 vs W90
+  {
+    id: 193,
+    matchId: 97,
+    slot: "home",
+    teamId: null,
+    source: "W89",
+  },
+  {
+    id: 194,
+    matchId: 97,
+    slot: "away",
+    teamId: null,
+    source: "W90",
+  },
+
+  // M98 - W93 vs W94
+  {
+    id: 195,
+    matchId: 98,
+    slot: "home",
+    teamId: null,
+    source: "W93",
+  },
+  {
+    id: 196,
+    matchId: 98,
+    slot: "away",
+    teamId: null,
+    source: "W94",
+  },
+
+  // M99 - W91 vs W92
+  {
+    id: 197,
+    matchId: 99,
+    slot: "home",
+    teamId: null,
+    source: "W91",
+  },
+  {
+    id: 198,
+    matchId: 99,
+    slot: "away",
+    teamId: null,
+    source: "W92",
+  },
+
+  // M100 - W95 vs W96
+  {
+    id: 199,
+    matchId: 100,
+    slot: "home",
+    teamId: null,
+    source: "W95",
+  },
+  {
+    id: 200,
+    matchId: 100,
+    slot: "away",
+    teamId: null,
+    source: "W96",
+  },// M101 - W97 vs W98
+  {
+    id: 201,
+    matchId: 101,
+    slot: "home",
+    teamId: null,
+    source: "W97",
+  },
+  {
+    id: 202,
+    matchId: 101,
+    slot: "away",
+    teamId: null,
+    source: "W98",
+  },
+
+  // M102 - W99 vs W100
+  {
+    id: 203,
+    matchId: 102,
+    slot: "home",
+    teamId: null,
+    source: "W99",
+  },
+  {
+    id: 204,
+    matchId: 102,
+    slot: "away",
+    teamId: null,
+    source: "W100",
+  },{
+    id: 205,
+    matchId: 103,
+    slot: "home",
+    teamId: null,
+    source: "W101",
+  },
+  {
+    id: 206,
+    matchId: 103,
+    slot: "away",
+    teamId: null,
+    source: "W102",
+  },
 ];
 
 export default matchTeams;
