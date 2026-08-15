@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import { newMatches, newGroups, matchTeams, teams } from "../data";
+import {
+  getMatchTeams,
+  getTeamById,
+  getTeamsByGroup,
+} from "../utils/auxiliaryFunctions.js";
 import "./App.css";
 import {
   Keys,
@@ -20,15 +26,19 @@ import {
 
 function App() {
   const [toggle, setToggle] = useState("groups");
-  const [matches, setMatches] = useState(matchesData);
+  const [matches, setMatches] = useState(newMatches);
   const [matchesPlayOff, setMatchesPlayOff] = useState({});
   const [groups, setGroups] = useState(grupos);
 
-  let tableData = calculateTable(matches);
-  const classifiedGroups = groups.map((group) => ({
-    ...group,
-    equipos: calculatePosition(group.equipos, tableData),
-  }));
+  let tableData = calculateTable(newMatches, newGroups, teams, matchTeams);
+  const classifiedGroups = newGroups.map((group) => {
+    let equipos = getTeamsByGroup(teams, group.code);
+
+    return {
+      grupo: group.code,
+      equipos: calculatePosition(equipos, tableData),
+    };
+  });
 
   const bracketData = {
     round16: getBracketData(matchesPlayOff.round16 ?? []),
@@ -37,24 +47,29 @@ function App() {
     semi: getBracketData(matchesPlayOff.semi ?? []),
     final: getBracketData(matchesPlayOff.final ?? []),
   };
-  
 
   function getBracketData(matches) {
+    
     return matches.map((match) => {
-      let flagLocal = groups.flatMap(({ equipos })=> equipos).find((equipo) => equipo.nombre === match.local).bandera;
+      let teamSlots = getMatchTeams(match, matchTeams, teams);
+      //Aqui deberia calcular los partidos y devolver un team = {id: 25,name: "Belgica",flagUrl: "https://flagsapi.com/BE/flat/64.png",code: "BE",group: "G",}
+      
+      let flagLocal =teamSlots.home.flagUrl ?? "/blank.webp";
 
-      let flagAway = groups.flatMap(({ equipos })=> equipos).find((equipo) => equipo.nombre === match.visitante).bandera;
+      let flagAway = teamSlots.away.flagUrl ?? "/blank.webp";
       
       return { flagLocal, flagAway, date: match.fecha };
     });
   }
 
-  function calculateTable(matches) {
-    //Creo la variable table
-    const table = groups.flatMap(({ equipos }) =>
-      equipos.map((team) => ({
-        name: team.nombre,
-        flag: team.bandera,
+  function calculateTable(matches, groups, teams, matchTeams) {
+    const table = groups.flatMap((group) => {
+      
+      const groupTeams = getTeamsByGroup(teams, group.code);
+      return groupTeams.map((team) => ({
+        id: team.id,
+        name: team.name,
+        flag: team.flagUrl,
         pj: 0,
         gf: 0,
         gc: 0,
@@ -63,45 +78,48 @@ function App() {
         g: 0,
         e: 0,
         ptos: 0,
-      })),
-    );
+      }));
+    });
 
     matches.forEach((match) => {
-      const { visitante, local, visitanteScore, localScore } = match;
-      let tableLocal = table.find((team) => team.name === local);
-      let tableAway = table.find((team) => team.name === visitante);
+      const awayScore = match.awayScore;
+      const homeScore = match.homeScore;
+      const teamSlots = getMatchTeams(match, matchTeams, teams);
 
-      //Partidos jugados
-      if (match.localScore === null && match.visitanteScore === null) return;
-      else {
-        tableLocal.pj++;
-        tableAway.pj++;
+      
+      let tableHome = table.find((team) => team.id === teamSlots.home.id);
+      let tableAway = table.find((team) => team.id === teamSlots.away.id);
 
-        //Goles
-        tableLocal.gf += parseInt(localScore === null ? 0 : localScore);
-        tableLocal.gc += parseInt(visitanteScore === null ? 0 : visitanteScore);
-        tableLocal.dg = tableLocal.gf - tableLocal.gc;
-        tableAway.gf += parseInt(visitanteScore === null ? 0 : visitanteScore);
-        tableAway.gc += parseInt(localScore === null ? 0 : localScore);
-        tableAway.dg = tableAway.gf - tableAway.gc;
+      //Matches played
+      if (homeScore === null && awayScore === null) return;
 
-        //Partidos ganados o perdidos y puntos
-        if (localScore > visitanteScore) {
-          tableLocal.g += 1;
-          tableLocal.ptos += 3;
-          tableAway.p += 1;
-        } else if (localScore < visitanteScore) {
-          tableLocal.p += 1;
-          tableAway.g += 1;
-          tableAway.ptos += 3;
-        } else {
-          tableLocal.e += 1;
-          tableLocal.ptos += 1;
-          tableAway.e += 1;
-          tableAway.ptos += 1;
-        }
+      tableHome.pj++;
+      tableAway.pj++;
+
+      //Goals
+      tableHome.gf += homeScore ?? 0;
+      tableHome.gc += awayScore ?? 0;
+      tableHome.dg = tableHome.gf - tableHome.gc;
+      tableAway.gf += awayScore ?? 0;
+      tableAway.gc += homeScore ?? 0;
+      tableAway.dg = tableAway.gf - tableAway.gc;
+
+      //Matches won, losed or points
+      if (homeScore > awayScore) {
+        tableHome.g += 1;
+        tableHome.ptos += 3;
+        tableAway.p += 1;
+      } else if (homeScore < awayScore) {
+        tableHome.p += 1;
+        tableAway.g += 1;
+        tableAway.ptos += 3;
+      } else {
+        tableHome.e += 1;
+        tableHome.ptos += 1;
+        tableAway.e += 1;
+        tableAway.ptos += 1;
       }
-    });
+    });    
 
     return table;
   }
@@ -110,7 +128,7 @@ function App() {
     let tableInfo = [];
     group.forEach((team) => {
       let tableTeam = tableData.find(
-        (teamTable) => teamTable.name === team.nombre,
+        (teamTable) => teamTable.name === team.name,
       );
       tableInfo.push(tableTeam);
     });
@@ -137,10 +155,11 @@ function App() {
 
   //Cruces
   useEffect(() => {
-    const [nuevosMatches, nuevosCruces] = calculateRound16(
+    const [nuevosMatches] = calculateRound16(
       tableData,
-      classifiedGroups,
-      "Clasificación de 32",
+      newGroups,
+      teams,
+      "ROUND_OF_32",
     );
 
     setMatchesPlayOff((prevValues) => {
@@ -151,10 +170,11 @@ function App() {
   //Cuando se modifique round16 se modifica round8
   useEffect(() => {
     if (matchesPlayOff.round16 == null) return;
-    const [nuevosMatches, nuevosCruces] = calculateRound8(
+    const [nuevosMatches] = calculateRound8(
       matchesPlayOff.round16,
       "Clasificación de 16",
-      classifiedGroups
+      newGroups,
+      teams
     );
 
     setMatchesPlayOff((prevValues) => {
@@ -164,10 +184,11 @@ function App() {
 
   useEffect(() => {
     if (matchesPlayOff.round8 == null) return;
-    const [nuevosMatches, nuevosCruces] = calculateQuarter(
+    const [nuevosMatches] = calculateQuarter(
       matchesPlayOff.round8,
       "Cuartos de Final",
-      classifiedGroups
+      newGroups,
+      teams
     );
 
     setMatchesPlayOff((prevValues) => {
@@ -177,10 +198,11 @@ function App() {
 
   useEffect(() => {
     if (matchesPlayOff.quarter == null) return;
-    const [nuevosMatches, nuevosCruces] = calculateSemi(
+    const [nuevosMatches] = calculateSemi(
       matchesPlayOff.quarter,
       "Semifinal",
-      classifiedGroups
+      newGroups,
+      teams
     );
 
     setMatchesPlayOff((prevValues) => {
@@ -190,10 +212,11 @@ function App() {
 
   useEffect(() => {
     if (matchesPlayOff.semi == null) return;
-    const [nuevosMatches, nuevosCruces] = calculateFinal(
+    const [nuevosMatches] = calculateFinal(
       matchesPlayOff.semi,
       "Final",
-      classifiedGroups
+      newGroups,
+      teams
     );
 
     setMatchesPlayOff((prevValues) => {
