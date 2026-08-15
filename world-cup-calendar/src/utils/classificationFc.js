@@ -2,13 +2,14 @@ import anexoC from "./anexoC.js";
 import {
   getMatchTeams,
   getTeamById,
+  getTeamBySource,
   getTeamsByGroup,
 } from "../utils/auxiliaryFunctions.js";
 import { matchesData } from "./index.js";
 import matchTeams from "../data/matchTeams.js";
 
 const round32 = [
-  { local: "1E", away: "third", id: 73},
+  { local: "1E", away: "third", id: 73 },
   { local: "1I", away: "third", id: 74 },
   { local: "2A", away: "2B", id: 75 },
   { local: "1F", away: "2C", id: 76 },
@@ -30,8 +31,8 @@ const round32 = [
 const round16 = [
   { local: "W1", away: "W2", id: 89 },
   { local: "W3", away: "W4", id: 90 },
-  { local: "W5", away: "W6", id:91 },
-  { local: "W8", away: "W8", id:92 },
+  { local: "W5", away: "W6", id: 91 },
+  { local: "W8", away: "W8", id: 92 },
   { local: "W9", away: "W10", id: 93 },
   { local: "W11", away: "W12", id: 94 },
   { local: "W13", away: "W14", id: 95 },
@@ -83,43 +84,80 @@ const dates = {
   final: ["19/7"],
 };
 
-export function calculateRound16(table, groups, teams, roundName) {
-  
-  //Encontrar los participantes(clasificados)
-  const { classified, keyAnexoC } = getClassified(table, groups, teams);
-  
-  //Encontrar quien juega contra quien
-  let keyAnexoCSorted = keyAnexoC
+export function calculateRound16(
+  table,
+  groups,
+  teams,
+  roundName,
+  matches,
+  matchTeams,
+) {
+  //Encontrar los 12 terceros
+  let terceros = groups.map((group) =>
+    getTeamBySource(`3${group.code}`, teams, table, matches, matchTeams),
+  );
+
+  let tableThird = terceros.map((tercero) =>
+    table.find((t) => t.id === tercero.id),
+  );
+
+  //Encontrar los mejores 8 terceros
+  terceros = sortTeams(tableThird).slice(0, 8);
+
+  //Encontrar keyAnexoCSorted
+  let keyAnexoC2 = "";
+  terceros.forEach((team) => {
+    let group = teams.find((t) => t.id === team.id).group;
+    keyAnexoC2 += group;
+  });
+  let keyAnexoCSorted2 = keyAnexoC2
     .split("")
     .sort((a, b) => a.localeCompare(b))
     .join("");
-  let thirdCruces = anexoC[keyAnexoCSorted];
-  let cruces = round32.map((match) => ({
-    ...match,
-    away:
-      match.away === "third"
-        ? thirdCruces.find((c) => c.includes(match.local)).slice(0, 2)
-        : match.away,
-  }));
 
-  const matchesRond16 = generateMatches(
-    cruces,
-    classified,
-    roundName,
-    dates["round32"],
-  );
+  //Encontrar cruces
+  let thirdCruces2 = anexoC[keyAnexoCSorted2];
 
-  
+  //Sustituir en matchTeams teamId by source
+  matchTeams.forEach((mt) => {
+    if (mt.source === null) return;
+    if (mt.source === "third") {
+      /**Si source = third
+       * Encuentras los dos partidos que matchId sean iguales para third
+       * Buscas el otro source va a ser por ejemplo 1E,
+       * Buscas en cruces que tercero corresponde para 1E
+       * cruces = ['3E-1A', '3J-1B', '3B-1D', '3C-1E', '3H-1G', '3G-1I', '3L-1K', '3I-1L']
+       * buscas que equipoo es 3C i ese id lo pones en teamId
+       */
+      let otherSource = matchTeams.find(
+        (m) => m.matchId === mt.matchId && m.slot !== mt.slot,
+      ).source;
+      let mainSource = thirdCruces2
+        .find((c) => c.includes(otherSource))
+        .slice(0, 2);
+      let team = getTeamBySource(mainSource, teams, table, matches, matchTeams);
 
-  return [matchesRond16];
+      mt.teamId = team?.id ?? null;
+    } else {
+      
+      
+      let team = getTeamBySource(mt.source, teams, table, matches, matchTeams);
+
+      mt.teamId = team?.id ?? null;
+      if(mt.source === 'W74'){
+        
+        
+      }
+    }
+  });
 }
 
 export function calculateRound8(matchesRond16, roundName, groups, teams) {
   //Obtener los 16 ganadores
-   
+
   let winners = getWinners(matchesRond16, round16, groups, teams);
-  
-console.log(winners);
+
+  JSON.stringify(matchesRond16, null, 2);
 
   const matchesRond8 = generateMatches(
     round16,
@@ -128,21 +166,19 @@ console.log(winners);
     dates["round16"],
   );
 
-
   return [matchesRond8];
 }
 
 export function calculateQuarter(matchesRond8, roundName, groups, teams) {
   //Obtener los 8 ganadores
   let winners = getWinners(matchesRond8, quarterFinals, groups, teams);
-  
+
   const matchesQuarter = generateMatches(
     quarterFinals,
     winners,
     roundName,
     dates["quarterFinals"],
   );
-
 
   return [matchesQuarter];
 }
@@ -158,22 +194,21 @@ export function calculateSemi(matchesQuarter, roundName, groups, teams) {
     dates["semiFinals"],
   );
 
-
   return [matchesSemi];
 }
 
 export function calculateFinal(matchesSemi, roundName, groups, teams) {
   //Obtener los 8 ganadores
-  let winners = getWinners(matchesSemi, final, groups, teams)
+  let winners = getWinners(matchesSemi, final, groups, teams);
 
   const matchFinal = generateMatches(final, winners, roundName, dates["final"]);
 
   return [matchFinal];
 }
 
-function getWinners(matches, claves, groups, teams) {  
+function getWinners(matches, claves, groups, teams) {
   const winners = {};
-  
+
   claves.forEach((match) => {
     winners[match.local] = { flag: "z", name: "", id: null };
     winners[match.away] = { flag: "y", name: "", id: null };
@@ -185,22 +220,24 @@ function getWinners(matches, claves, groups, teams) {
     let winner;
     let localScore = match.homeScore;
     let visitanteScore = match.awayScore;
-    
-    let {home, away} = getMatchTeams(match, matchTeams, teams);
-    //Tengo que hacer una funcion que resuelva el source y devuelva {id: 25,name: "Belgica",flagUrl: "https://flagsapi.com/BE/flat/64.png",code: "BE",group: "G",}    
-    
-    winner =
-      localScore > visitanteScore ? home : away;
+
+    let { home, away } = getMatchTeams(match, matchTeams, teams);
+    //Tengo que hacer una funcion que resuelva el source y devuelva {id: 25,name: "Belgica",flagUrl: "https://flagsapi.com/BE/flat/64.png",code: "BE",group: "G",}
+
+    winner = localScore > visitanteScore ? home : away;
 
     if (localScore == null && visitanteScore == null) {
       winner = home;
     }
-    
+
     //let equipo = getTeamsByGroup().find(e => e.name === winner);
     const equipo = teams.find((e) => e.name === winner);
-    
 
-    winners[keys[index]] = { flag: equipo?.flagUrl ?? "/blanck.webp", name: equipo?.name ?? "", id: equipo?.id ?? null};
+    winners[keys[index]] = {
+      flag: equipo?.flagUrl ?? "/blanck.webp",
+      name: equipo?.name ?? "",
+      id: equipo?.id ?? null,
+    };
   });
   return winners;
 }
@@ -212,27 +249,31 @@ function getClassified(table, groups, teams) {
 
   groups.forEach((group) => {
     let equipos = getTeamsByGroup(teams, group.code);
-    
+
     equipos.forEach((team, index) => {
       const pos = index + 1;
       if (pos > 3) return;
 
       if (pos === 3) {
-        let dataTable = table.find(td => td.name === team.name);
-        third.push({name: team.name, flag: team.flagUrl, group: team.group, ...dataTable});
+        let dataTable = table.find((td) => td.name === team.name);
+        third.push({
+          name: team.name,
+          flag: team.flagUrl,
+          group: team.group,
+          ...dataTable,
+        });
       } else {
         const key = `${pos}${team.group}`;
         classified[key] = { flag: team.flagUrl, name: team.name, id: team.id };
-        
       }
     });
   });
 
-  let qualifiedThird = sortTeams(third).slice(0,8);
-  qualifiedThird.forEach(team => {
+  let qualifiedThird = sortTeams(third).slice(0, 8);
+  qualifiedThird.forEach((team) => {
     const key = `3${team.group}`;
-        classified[key] = { flag: team.flag, name: team.name, id: team.id };
-        keyAnexoC += team.group;
+    classified[key] = { flag: team.flag, name: team.name, id: team.id };
+    keyAnexoC += team.group;
   });
   return { classified, keyAnexoC };
 }
@@ -249,9 +290,8 @@ function generateMatches(cruces, teamData, roundName, dates) {
   status: scheduled,
   homeScore: null,
   awayScore: null
-  }*/  
+  }*/
   return cruces.map((game, index) => {
-    
     return {
       id: game.id,
       round: roundName,

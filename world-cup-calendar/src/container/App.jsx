@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { newMatches, newGroups, matchTeams, teams } from "../data";
+import { newMatches, newGroups, matchTeams, teams} from "../data";
 import {
   getMatchTeams,
   getTeamById,
   getTeamsByGroup,
+  getTeamBySource,
+  calculatePosition
 } from "../utils/auxiliaryFunctions.js";
 import "./App.css";
 import {
@@ -27,10 +29,10 @@ import {
 function App() {
   const [toggle, setToggle] = useState("groups");
   const [matches, setMatches] = useState(newMatches);
-  const [matchesPlayOff, setMatchesPlayOff] = useState({});
   const [groups, setGroups] = useState(grupos);
 
-  let tableData = calculateTable(newMatches, newGroups, teams, matchTeams);
+  let tableData = calculateTable(matches.filter(m => m.round === "GROUP_STAGE"), newGroups, teams, matchTeams);
+  
   const classifiedGroups = newGroups.map((group) => {
     let equipos = getTeamsByGroup(teams, group.code);
 
@@ -41,22 +43,25 @@ function App() {
   });
 
   const bracketData = {
-    round16: getBracketData(matchesPlayOff.round16 ?? []),
-    round8: getBracketData(matchesPlayOff.round8 ?? []),
-    quarter: getBracketData(matchesPlayOff.quarter ?? []),
-    semi: getBracketData(matchesPlayOff.semi ?? []),
-    final: getBracketData(matchesPlayOff.final ?? []),
+    round16: getBracketData(matches.filter(m => m.round === "ROUND_OF_32") ?? []),
+    round8: getBracketData(matches.filter(m => m.round === "ROUND_OF_16") ?? []),
+    quarter: getBracketData(matches.filter(m => m.round === "QUARTERFINAL") ?? []),
+    semi: getBracketData(matches.filter(m => m.round === "SEMIFINAL") ?? []),
+    final: getBracketData(matches.filter(m => m.round === "FINAL") ?? []),
   };
 
   function getBracketData(matches) {
     
+    
     return matches.map((match) => {
       let teamSlots = getMatchTeams(match, matchTeams, teams);
-      //Aqui deberia calcular los partidos y devolver un team = {id: 25,name: "Belgica",flagUrl: "https://flagsapi.com/BE/flat/64.png",code: "BE",group: "G",}
       
-      let flagLocal =teamSlots.home.flagUrl ?? "/blank.webp";
+      let home = getTeamById(teams, teamSlots.home.teamId);
+      let away = getTeamById(teams, teamSlots.away.teamId);
+      
+      let flagLocal =home?.flagUrl ?? "/images/blank.webp";
 
-      let flagAway = teamSlots.away.flagUrl ?? "/blank.webp";
+      let flagAway = away?.flagUrl ?? "/images/blank.webp";
       
       return { flagLocal, flagAway, date: match.fecha };
     });
@@ -124,30 +129,6 @@ function App() {
     return table;
   }
 
-  function calculatePosition(group, tableData) {
-    let tableInfo = [];
-    group.forEach((team) => {
-      let tableTeam = tableData.find(
-        (teamTable) => teamTable.name === team.name,
-      );
-      tableInfo.push(tableTeam);
-    });
-
-    //Ordenar
-    tableInfo = sortTeams(tableInfo);
-
-    return tableInfo;
-  }
-
-  function sortTeams(teams) {
-    teams.sort((a, b) => {
-      if (a.ptos !== b.ptos) return b.ptos - a.ptos;
-      if (a.dg !== b.dg) return b.dg - a.dg;
-      if (a.gf !== b.gf) return b.gf - a.gf;
-      return a.name.localeCompare(b.name);
-    });
-    return teams;
-  }
 
   function togglePosition(position) {
     setToggle(position);
@@ -155,74 +136,26 @@ function App() {
 
   //Cruces
   useEffect(() => {
-    const [nuevosMatches] = calculateRound16(
+  calculateRound16(
       tableData,
       newGroups,
       teams,
       "ROUND_OF_32",
+      matches, 
+      matchTeams
     );
-
-    setMatchesPlayOff((prevValues) => {
-      return { ...prevValues, round16: nuevosMatches };
-    });
+    
+    
   }, [matches]);
 
-  //Cuando se modifique round16 se modifica round8
-  useEffect(() => {
-    if (matchesPlayOff.round16 == null) return;
-    const [nuevosMatches] = calculateRound8(
-      matchesPlayOff.round16,
-      "Clasificación de 16",
-      newGroups,
-      teams
-    );
-
-    setMatchesPlayOff((prevValues) => {
-      return { ...prevValues, round8: nuevosMatches };
+  function updateMatchScore(matchId, slot, score){
+    setMatches(prevMatches => {
+      return prevMatches.map(match => match.id ===matchId ? {
+        ...match,
+        [`${slot}Score`] : score,
+      } : match);
     });
-  }, [matchesPlayOff.round16]);
-
-  useEffect(() => {
-    if (matchesPlayOff.round8 == null) return;
-    const [nuevosMatches] = calculateQuarter(
-      matchesPlayOff.round8,
-      "Cuartos de Final",
-      newGroups,
-      teams
-    );
-
-    setMatchesPlayOff((prevValues) => {
-      return { ...prevValues, quarter: nuevosMatches };
-    });
-  }, [matchesPlayOff.round8]);
-
-  useEffect(() => {
-    if (matchesPlayOff.quarter == null) return;
-    const [nuevosMatches] = calculateSemi(
-      matchesPlayOff.quarter,
-      "Semifinal",
-      newGroups,
-      teams
-    );
-
-    setMatchesPlayOff((prevValues) => {
-      return { ...prevValues, semi: nuevosMatches };
-    });
-  }, [matchesPlayOff.quarter]);
-
-  useEffect(() => {
-    if (matchesPlayOff.semi == null) return;
-    const [nuevosMatches] = calculateFinal(
-      matchesPlayOff.semi,
-      "Final",
-      newGroups,
-      teams
-    );
-
-    setMatchesPlayOff((prevValues) => {
-      return { ...prevValues, final: nuevosMatches };
-    });
-  }, [matchesPlayOff.semi]);
+  }
 
   return (
     <>
@@ -234,13 +167,11 @@ function App() {
         <Groups table={tableData} groups={classifiedGroups} />
       ) : toggle === "matches" ? (
         <Matches
-          matchesPlayOff={matchesPlayOff}
-          setMatchesPlayOff={setMatchesPlayOff}
           matches={matches}
-          setMatches={setMatches}
+          updateMatchScore={updateMatchScore}
         />
       ) : (
-        <Keys matches={bracketData} realMatches={matchesPlayOff} />
+        <Keys matches={bracketData} />
       )}
     </>
   );

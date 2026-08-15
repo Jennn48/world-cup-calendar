@@ -1,7 +1,7 @@
 import MatchBracket from "../MatchBracket/MatchBracket.jsx";
 import "./style.css";
 
-function Final(props) {
+function Final(props) {  
   return (
     <>
       <div className="round final">

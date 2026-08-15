@@ -10,127 +10,12 @@ function CardMatch(props) {
     awayScore: props.awayScore,
   });
 
-  function setLocalScore(score) {
-    if (props.group === "Clasificación de 32") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        round16: prevMatches.round16.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      }));
-    } else if (props.group === "Clasificación de 16") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        round8: prevMatches.round8.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      }));
-    } else if (props.group === "Cuartos de Final") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        quarter: prevMatches.quarter.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      }));
-    }else if (props.group === "Semifinal") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        semi: prevMatches.semi.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      }));
-    } else if (props.group === "Final") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        final: prevMatches.final.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      }));
-    } else {
-      return props.setMatches((prevMatches) =>
-        prevMatches.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      );
-    }
+  function setHomeScore(score) {
+    props.updateMatchScore(props.id, "home", score);
   }
 
   function setAwayScore(score) {
-    if (props.group === "Clasificación de 32") {
-      return props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        round16: prevMatches.round16.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, visitanteScore: score }
-            : match,
-        ),
-      }));
-    } else if (props.group === "Clasificación de 16") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        round8: prevMatches.round8.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, visitanteScore: score }
-            : match,
-        ),
-      }));
-    }else if (props.group === "Cuartos de Final") {
-       props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        quarter: prevMatches.quarter.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, visitanteScore: score }
-            : match,
-        ),
-      }));
-    }else if (props.group === "Semifinal") {
-       props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        semi: prevMatches.semi.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, visitanteScore: score }
-            : match,
-        ),
-      }));
-    } else if (props.group === "Final") {
-       props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        final: prevMatches.final.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, visitanteScore: score }
-            : match,
-        ),
-      }));
-    } else if (props.group === "Clasificación de 16") {
-      props.setMatches((prevMatches) => ({
-        ...prevMatches,
-        round8: prevMatches.round8.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, localScore: score }
-            : match,
-        ),
-      }));
-    } else {
-      return props.setMatches((prevMatches) =>
-        prevMatches.map((match) =>
-          match.local === props.localName && match.visitante === props.awayName
-            ? { ...match, visitanteScore: score }
-            : match,
-        ),
-      );
-    }
+    props.updateMatchScore(props.id, "away", score);
   }
 
   function findFlag(countryName) {
@@ -153,7 +38,7 @@ function CardMatch(props) {
             name={props.localName}
             flagSrc={findFlag(props.localName)}
             score={matchScore.localScore}
-            addScore={setLocalScore}
+            addScore={setHomeScore}
           />
           <TeamCard
             className="away-team"

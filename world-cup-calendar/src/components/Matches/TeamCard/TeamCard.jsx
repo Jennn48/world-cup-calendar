@@ -6,7 +6,7 @@ function TeamCard(props) {
   const [score, setScore] = useState(props.score ?? 0);
 
   function sendScore() {
-    setEditing(false)
+    setEditing(false);
     props.addScore(score);
   }
   return (
