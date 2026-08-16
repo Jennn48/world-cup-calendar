@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { matchesData, groups, matchTeams, teams} from "../data";
 import {
-  getMatchTeams,
-  getTeamById,
   getTeamsByGroup,
-  getTeamBySource,
   calculatePosition
 } from "../utils/auxiliaryFunctions.js";
 import calculateStandings from "../utils/standings.js";
@@ -18,13 +15,7 @@ import {
   Hero,
   Toggle,
 } from "../components/index.js";
-import {
-  calculateRound16,
-  calculateRound8,
-  calculateQuarter,
-  calculateSemi,
-  calculateFinal,
-} from "../utils/index.js";
+import   resolveMatchTeams from "../utils/classificationFc.js";
 
 function App() {
   const [toggle, setToggle] = useState("groups");
@@ -40,7 +31,7 @@ function App() {
       equipos: calculatePosition(equipos, standings),
     };
   });
-
+  
   const bracketData = {
     round16: getBracketData(matches.filter(m => m.round === "ROUND_OF_32") ?? [], matchTeams, teams),
     round8: getBracketData(matches.filter(m => m.round === "ROUND_OF_16") ?? [], matchTeams, teams),
@@ -49,16 +40,13 @@ function App() {
     final: getBracketData(matches.filter(m => m.round === "FINAL") ?? [], matchTeams, teams),
   };
 
- 
-
 
   function togglePosition(position) {
     setToggle(position);
   }
 
-  //Cruces
-  useEffect(() => {
-  calculateRound16(
+
+  const resolvedMatchTeams = resolveMatchTeams(
       standings,
       groups,
       teams,
@@ -66,9 +54,6 @@ function App() {
       matches, 
       matchTeams
     );
-    
-    
-  }, [matches]);
 
   function updateMatchScore(matchId, slot, score){
     setMatches(prevMatches => {
