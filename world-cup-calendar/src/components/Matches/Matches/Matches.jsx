@@ -25,12 +25,10 @@ function Matches(props) {
                 key={match.id}
                 id={match.id}
                 group={match.gruopCode}
-                localName={teamSlots.home.name}
-                awayName={teamSlots.away.name}
-                homeFlag={teamSlots.home.flagUrl}
-                awayFlag={teamSlots.away.flagUrl}
-                homeFlag={teamSlots.home.flagUrl}
-                awayFlag={teamSlots.away.flagUrl}
+                localName={teamSlots.home.team.name}
+                awayName={teamSlots.away.team.name}
+                homeFlag={teamSlots.home.team.flagUrl}
+                awayFlag={teamSlots.away.team.flagUrl}
                 localScore={match.homeScore}
                 awayScore={match.awayScore}
                 date={match.matchDate}
@@ -51,6 +49,7 @@ function Matches(props) {
             home: getTeamById(teams, teamSlotsId.home.teamId),
             away: getTeamById(teams, teamSlotsId.away.teamId),
           };
+          
           if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
             return null;
           }
@@ -81,11 +80,13 @@ function Matches(props) {
           props.matches.filter((m) => m.round === "ROUND_OF_16"),
         ).map((match, index) => {
           let teamSlotsId = getMatchTeams(match, matchTeams, teams);
+          
+          
           let teamSlots = {
             home: getTeamById(teams, teamSlotsId.home.teamId),
             away: getTeamById(teams, teamSlotsId.away.teamId),
           };
-          console.log("s", teamSlots);
+          
           if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
             return null;
           }
