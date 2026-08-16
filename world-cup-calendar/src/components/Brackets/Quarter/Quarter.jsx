@@ -5,13 +5,18 @@ function Quarter(props) {
   return (
     <>
       <div className="round quarter">
-        {props.matches.map((match) => (
-          <MatchBracket
-            flagLocal={match.flagLocal}
-            flagAway={match.flagAway}
-            date={match.date}
-          />
-        ))}
+        {props.matches.map((match) => {
+          let flagLocal = match.homeTeam?.flagUrl ?? "/images/blank.webp";
+
+          let flagAway = match.awayTeam?.flagUrl ?? "/images/blank.webp";
+          return (
+            <MatchBracket
+              flagLocal={flagLocal}
+              flagAway={flagAway}
+              date={match.match.matchDate}
+            />
+          );
+        })}
       </div>
     </>
   );

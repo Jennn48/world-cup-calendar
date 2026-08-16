@@ -1,6 +1,5 @@
 import TeamCard from "../TeamCard/TeamCard.jsx";
 import Date from "../Date/Date.jsx";
-import groups from "../../../utils/grupos.js";
 import { useState } from "react";
 import "./style.css";
 
@@ -18,15 +17,7 @@ function CardMatch(props) {
     props.updateMatchScore(props.id, "away", score);
   }
 
-  function findFlag(countryName) {
-    let banderas = {};
-    groups.forEach((group) => {
-      group.equipos.forEach((equipo) => {
-        banderas[equipo.nombre] = equipo.bandera;
-      });
-    });
-    return banderas[countryName];
-  }
+  
   return (
     <>
       <div className="card-match">
@@ -36,14 +27,14 @@ function CardMatch(props) {
           <TeamCard
             className="local-team"
             name={props.localName}
-            flagSrc={findFlag(props.localName)}
+            flagSrc={props.homeFlag}
             score={matchScore.localScore}
             addScore={setHomeScore}
           />
           <TeamCard
             className="away-team"
             name={props.awayName}
-            flagSrc={findFlag(props.awayName)}
+            flagSrc={props.awayFlag}
             score={matchScore.awayScore}
             addScore={setAwayScore}
           />

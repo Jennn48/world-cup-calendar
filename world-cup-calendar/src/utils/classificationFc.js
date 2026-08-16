@@ -5,7 +5,6 @@ import {
   getTeamBySource,
   getTeamsByGroup,
 } from "../utils/auxiliaryFunctions.js";
-import { matchesData } from "./index.js";
 import matchTeams from "../data/matchTeams.js";
 
 const round32 = [

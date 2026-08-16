@@ -1,6 +1,6 @@
-import newGroups from "./groups.js";
-import newMatches from "./matches.js";
+import groups from "./groups.js";
+import matchesData from "./matches.js";
 import matchTeams from "./matchTeams.js";
 import teams from "./teams.js";
 
-export {newGroups, newMatches, matchTeams, teams};
+export {groups, matchesData, matchTeams, teams};

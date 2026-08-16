@@ -27,6 +27,10 @@ function Matches(props) {
                 group={match.gruopCode}
                 localName={teamSlots.home.name}
                 awayName={teamSlots.away.name}
+                homeFlag={teamSlots.home.flagUrl}
+                awayFlag={teamSlots.away.flagUrl}
+                homeFlag={teamSlots.home.flagUrl}
+                awayFlag={teamSlots.away.flagUrl}
                 localScore={match.homeScore}
                 awayScore={match.awayScore}
                 date={match.matchDate}
@@ -47,8 +51,9 @@ function Matches(props) {
             home: getTeamById(teams, teamSlotsId.home.teamId),
             away: getTeamById(teams, teamSlotsId.away.teamId),
           };
-          if (Object.values(teamSlotsId).some((t) => t.teamId === null)){ return null;}
-         
+          if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
+            return null;
+          }
 
           return (
             <>
@@ -58,6 +63,8 @@ function Matches(props) {
                 group={match.round}
                 localName={teamSlots.home.name}
                 awayName={teamSlots.away.name}
+                homeFlag={teamSlots.home.flagUrl}
+                awayFlag={teamSlots.away.flagUrl}
                 localScore={match.homeScore}
                 awayScore={match.awayScore}
                 date={match.matchDate}
@@ -78,9 +85,11 @@ function Matches(props) {
             home: getTeamById(teams, teamSlotsId.home.teamId),
             away: getTeamById(teams, teamSlotsId.away.teamId),
           };
-          console.log("s",teamSlots);
-          if (Object.values(teamSlotsId).some((t) => t.teamId === null)){return null;}
-          
+          console.log("s", teamSlots);
+          if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
+            return null;
+          }
+
           return (
             <>
               <CardMatch
@@ -89,6 +98,8 @@ function Matches(props) {
                 group={match.gruopCode}
                 localName={teamSlots.home.name}
                 awayName={teamSlots.away.name}
+                homeFlag={teamSlots.home.flagUrl}
+                awayFlag={teamSlots.away.flagUrl}
                 localScore={match.homeScore}
                 awayScore={match.awayScore}
                 date={match.matchDate}
@@ -110,8 +121,10 @@ function Matches(props) {
             home: getTeamById(teams, teamSlotsId.home.teamId),
             away: getTeamById(teams, teamSlotsId.away.teamId),
           };
-          if (Object.values(teamSlotsId).some((t) => t.teamId === null)){return null;}
-          
+          if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
+            return null;
+          }
+
           return (
             <>
               <CardMatch
@@ -120,6 +133,8 @@ function Matches(props) {
                 group={match.gruopCode}
                 localName={teamSlots.home.name}
                 awayName={teamSlots.away.name}
+                homeFlag={teamSlots.home.flagUrl}
+                awayFlag={teamSlots.away.flagUrl}
                 localScore={match.homeScore}
                 awayScore={match.awayScore}
                 date={match.matchDate}
@@ -141,8 +156,10 @@ function Matches(props) {
             home: getTeamById(teams, teamSlotsId.home.teamId),
             away: getTeamById(teams, teamSlotsId.away.teamId),
           };
-          if (Object.values(teamSlotsId).some((t) => t.teamId === null)){ return null;}
-         
+          if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
+            return null;
+          }
+
           return (
             <>
               <CardMatch
@@ -151,6 +168,8 @@ function Matches(props) {
                 group={match.gruopCode}
                 localName={teamSlots.home.name}
                 awayName={teamSlots.away.name}
+                homeFlag={teamSlots.home.flagUrl}
+                awayFlag={teamSlots.away.flagUrl}
                 localScore={match.homeScore}
                 awayScore={match.awayScore}
                 date={match.matchDate}
@@ -171,8 +190,10 @@ function Matches(props) {
               home: getTeamById(teams, teamSlotsId.home.teamId),
               away: getTeamById(teams, teamSlotsId.away.teamId),
             };
-            if (Object.values(teamSlotsId).some((t) => t.teamId === null)){return null;}
-            
+            if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
+              return null;
+            }
+
             return (
               <>
                 <CardMatch
@@ -181,6 +202,8 @@ function Matches(props) {
                   group={match.gruopCode}
                   localName={teamSlots.home.name}
                   awayName={teamSlots.away.name}
+                  homeFlag={teamSlots.home.flagUrl}
+                  awayFlag={teamSlots.away.flagUrl}
                   localScore={match.homeScore}
                   awayScore={match.awayScore}
                   date={match.matchDate}
