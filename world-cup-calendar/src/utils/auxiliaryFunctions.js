@@ -48,6 +48,7 @@ export function getMatchTeams(match, matchTeams, teams) {
   };
 }
 export function getTeamBySource(source, teams, tableData, matches, matchTeams) {
+  
   //Source W101 o W73
   if (source.startsWith("W")) {
     let id = parseInt(source.slice(1));
