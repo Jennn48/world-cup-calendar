@@ -1,12 +1,9 @@
 import CardMatch from "../CardMatch/CardMatch.jsx";
-import { useState } from "react";
 import "./style.css";
 import {
   getMatchTeams,
   getTeamById,
 } from "../../../utils/auxiliaryFunctions.js";
-import matchTeams from "../../../data/matchTeams.js";
-import teams from "../../../data/teams.js";
 
 function Matches(props) {
   return (
@@ -16,7 +13,7 @@ function Matches(props) {
           <h2>Partidos fase de grupos</h2>
         </div>
         {props.matches.map((match, index) => {
-          let teamSlots = getMatchTeams(match, matchTeams, teams);
+          let teamSlots = getMatchTeams(match, props.matchTeams, props.teams);
 
           if (match.round !== "GROUP_STAGE") return null;
           return (
@@ -44,10 +41,10 @@ function Matches(props) {
         {Object.values(
           props.matches.filter((m) => m.round === "ROUND_OF_32"),
         ).map((match, index) => {
-          let teamSlotsId = getMatchTeams(match, matchTeams, teams);
+          let teamSlotsId = getMatchTeams(match, props.matchTeams, props.teams);
           let teamSlots = {
-            home: getTeamById(teams, teamSlotsId.home.teamId),
-            away: getTeamById(teams, teamSlotsId.away.teamId),
+            home: getTeamById(props.teams, teamSlotsId.home.teamId),
+            away: getTeamById(props.teams, teamSlotsId.away.teamId),
           };
           
           if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
@@ -79,12 +76,12 @@ function Matches(props) {
         {Object.values(
           props.matches.filter((m) => m.round === "ROUND_OF_16"),
         ).map((match, index) => {
-          let teamSlotsId = getMatchTeams(match, matchTeams, teams);
+          let teamSlotsId = getMatchTeams(match, props.matchTeams, props.teams);
           
           
           let teamSlots = {
-            home: getTeamById(teams, teamSlotsId.home.teamId),
-            away: getTeamById(teams, teamSlotsId.away.teamId),
+            home: getTeamById(props.teams, teamSlotsId.home.teamId),
+            away: getTeamById(props.teams, teamSlotsId.away.teamId),
           };
           
           if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
@@ -117,10 +114,10 @@ function Matches(props) {
         {Object.values(
           props.matches.filter((m) => m.round === "QUARTERFINAL"),
         ).map((match, index) => {
-          let teamSlotsId = getMatchTeams(match, matchTeams, teams);
+          let teamSlotsId = getMatchTeams(match, props.matchTeams, props.teams);
           let teamSlots = {
-            home: getTeamById(teams, teamSlotsId.home.teamId),
-            away: getTeamById(teams, teamSlotsId.away.teamId),
+            home: getTeamById(props.teams, teamSlotsId.home.teamId),
+            away: getTeamById(props.teams, teamSlotsId.away.teamId),
           };
           if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
             return null;
@@ -152,10 +149,10 @@ function Matches(props) {
         {Object.values(
           props.matches.filter((m) => m.round === "SEMIFINAL"),
         ).map((match, index) => {
-          let teamSlotsId = getMatchTeams(match, matchTeams, teams);
+          let teamSlotsId = getMatchTeams(match, props.matchTeams, props.teams);
           let teamSlots = {
-            home: getTeamById(teams, teamSlotsId.home.teamId),
-            away: getTeamById(teams, teamSlotsId.away.teamId),
+            home: getTeamById(props.teams, teamSlotsId.home.teamId),
+            away: getTeamById(props.teams, teamSlotsId.away.teamId),
           };
           if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
             return null;
@@ -186,10 +183,10 @@ function Matches(props) {
         </div>
         {Object.values(props.matches.filter((m) => m.round === "FINAL")).map(
           (match, index) => {
-            let teamSlotsId = getMatchTeams(match, matchTeams, teams);
+            let teamSlotsId = getMatchTeams(match, props.matchTeams, props.teams);
             let teamSlots = {
-              home: getTeamById(teams, teamSlotsId.home.teamId),
-              away: getTeamById(teams, teamSlotsId.away.teamId),
+              home: getTeamById(props.teams, teamSlotsId.home.teamId),
+              away: getTeamById(props.teams, teamSlotsId.away.teamId),
             };
             if (Object.values(teamSlotsId).some((t) => t.teamId === null)) {
               return null;
