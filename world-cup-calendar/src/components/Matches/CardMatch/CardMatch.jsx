@@ -5,42 +5,42 @@ import "./style.css";
 
 function CardMatch(props) {
   const [matchScore, setMatchScore] = useState({
-    localScore: props.localScore,
-    awayScore: props.awayScore,
+    localScore: props.match.homeScore,
+    awayScore: props.match.awayScore,
   });
 
   function setHomeScore(score) {
-    props.updateMatchScore(props.id, "home", score);
+    props.updateMatchScore(props.match.id, "home", score);
   }
 
   function setAwayScore(score) {
-    props.updateMatchScore(props.id, "away", score);
+    props.updateMatchScore(props.match.id, "away", score);
   }
-
+  
   
   return (
     <>
       <div className="card-match">
-        <p className="group-name">{props.group}</p>
+        <p className="group-name">{props.match.groupCode}</p>
 
         <div id="teams">
           <TeamCard
             className="local-team"
-            name={props.localName}
-            flagSrc={props.homeFlag}
-            score={matchScore.localScore}
+            name={props.homeTeam.name}
+            flagSrc={props.homeTeam.flagUrl}
+            score={props.match.homeScore}
             addScore={setHomeScore}
           />
           <TeamCard
             className="away-team"
-            name={props.awayName}
-            flagSrc={props.awayFlag}
-            score={matchScore.awayScore}
+            name={props.awayTeam.name}
+            flagSrc={props.awayTeam.flagUrl}
+            score={props.match.awayScore}
             addScore={setAwayScore}
           />
         </div>
 
-        <Date date={props.date} hour={props.hour} />
+        <Date date={props.match.matchDate} hour={props.match.matchTime} />
       </div>
     </>
   );
