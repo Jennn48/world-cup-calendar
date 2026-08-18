@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { matchesData, groups, matchTeams, teams } from "../data";
 import {
   getTeamsByGroup,

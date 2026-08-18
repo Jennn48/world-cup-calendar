@@ -7,10 +7,6 @@
       let homeTeam = getTeamById(teams, teamSlots.home.teamId);
       let awayTeam = getTeamById(teams, teamSlots.away.teamId);
       
-      let flagLocal =homeTeam?.flagUrl ?? "/images/blank.webp";
-
-      let flagAway = awayTeam?.flagUrl ?? "/images/blank.webp";
-      
       return { match, homeTeam, awayTeam };
     });
   }
