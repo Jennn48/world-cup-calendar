@@ -1,5 +1,3 @@
-import matches from "../data/matches";
-
 export function getTeamById(teams, id) {
   return teams.find((team) => team.id === id);
 }
@@ -48,8 +46,8 @@ export function getMatchTeams(match, matchTeams, teams) {
   };
 }
 export function getTeamBySource(source, teams, tableData, matches, matchTeams) {
-  
   //Source W101 o W73
+  if(source === 'third') return null;
   if (source.startsWith("W")) {
     let id = parseInt(source.slice(1));
 
@@ -90,8 +88,9 @@ export function getTeamBySource(source, teams, tableData, matches, matchTeams) {
 
 export function calculatePosition(group, tableData) {
   let tableInfo = [];
+  
   group.forEach((team) => {
-    let tableTeam = tableData.find((teamTable) => teamTable.name === team.name);
+    let tableTeam = tableData.find((teamTable) => teamTable.id === team.id);
     tableInfo.push(tableTeam);
   });
 
@@ -102,11 +101,10 @@ export function calculatePosition(group, tableData) {
 }
 
 export function sortTeams(teams) {
-  teams.sort((a, b) => {
+  return teams.toSorted((a, b) => {
     if (a.ptos !== b.ptos) return b.ptos - a.ptos;
     if (a.dg !== b.dg) return b.dg - a.dg;
     if (a.gf !== b.gf) return b.gf - a.gf;
     return a.name.localeCompare(b.name);
   });
-  return teams;
 }
