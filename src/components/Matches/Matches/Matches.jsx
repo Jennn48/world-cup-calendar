@@ -1,9 +1,5 @@
 import MatchItem from "./MatchItem.jsx";
 import "./style.css";
-import {
-  getMatchTeams,
-  getTeamById,
-} from "../../../utils/auxiliaryFunctions.js";
 
 function Matches(props) {
   const ROUND_CONFIG = [
@@ -45,9 +41,8 @@ function Matches(props) {
           }
 
           return (
-            <>
               <MatchItem
-                key={index + 1}
+                key={round}
                 id={index + 1}
                 matches={roundMatches}
                 title={title}
@@ -55,7 +50,6 @@ function Matches(props) {
                 teams={props.teams}
                 updateMatchScore={props.updateMatchScore}
               />
-            </>
           );
         })}
       </section>

@@ -1,13 +1,8 @@
 import TeamCard from "../TeamCard/TeamCard.jsx";
 import Date from "../Date/Date.jsx";
-import { useState } from "react";
 import "./style.css";
 
 function CardMatch(props) {
-  const [matchScore, setMatchScore] = useState({
-    localScore: props.match.homeScore,
-    awayScore: props.match.awayScore,
-  });
 
   function setHomeScore(score) {
     props.updateMatchScore(props.match.id, "home", score);
