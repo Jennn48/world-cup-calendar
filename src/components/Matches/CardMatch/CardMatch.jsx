@@ -16,7 +16,7 @@ function CardMatch(props) {
   return (
     <>
       <div className="card-match">
-        <p className="group-name">{props.match.groupCode}</p>
+        <p className="group-name">{props.match.groupCode && `Grupo ${props.match.groupCode}`}</p>
 
         <div id="teams">
           <TeamCard

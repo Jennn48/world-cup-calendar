@@ -19,8 +19,8 @@ function calculateStandings(matches, groups, teams, matchTeams) {
   });
 
   matches.forEach((match) => {
-    const awayScore = match.awayScore;
-    const homeScore = match.homeScore;
+    const awayScore =match.awayScore !== null ? Number(match.awayScore) : null;
+    const homeScore = match.homeScore !== null ? Number(match.homeScore) : null;
     const teamSlots = getMatchTeams(match, matchTeams, teams);
 
     let tableHome = table.find((team) => team.id === teamSlots.home.team.id);
