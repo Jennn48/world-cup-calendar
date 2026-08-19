@@ -5,6 +5,9 @@ function TeamCard(props) {
   const [editing, setEditing] = useState(false);
   const [score, setScore] = useState(props.score ?? 0);
 
+  /**
+   * Send a score to the parent component and change the input to the paragraph csore display.
+   */
   function sendScore() {
     setEditing(false);
     props.addScore(score);

@@ -1,3 +1,16 @@
+/**
+ * A tournament match.
+ *
+ * @typedef {Object} Match
+ * @property {number} id - Unique match identifier.
+ * @property {string} round - Tournament round.
+ * @property {string|null} groupCode - Group letter group-stage matches.
+ * @property {string} matchNumber - Match identifier in tournament regulations.
+ * @property {string} matchTime - Match time.
+ * @property {string} matchDate - Match date.
+ * @property {number|null} homeScore - Home team score.
+ * @property {number|null} awayScore - Away team score.
+ */
 const matches = [
   {
     id: 1,
