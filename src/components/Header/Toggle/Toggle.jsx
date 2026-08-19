@@ -4,6 +4,10 @@ import "./style.css";
 function Toggle(props) {
   const [position, setPosition] = useState("0");
 
+  /**
+   * Updates the visual position of the toggle indicator
+   * @param {MouseEvent} e - Click event.
+   */
   function handleClick(e) {
     if (e.target.id === "groups") {
       setPosition("0");

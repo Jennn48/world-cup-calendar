@@ -1,3 +1,13 @@
+/**
+ * A team participating in the tournament.
+ *
+ * @typedef {Object} Team
+ * @property {number} id - Unique team identifier.
+ * @property {string} name - Team name.
+ * @property {string} flagUrl - URL of the team's flag.
+ * @property {string} code - Team code.
+ * @property {string} group - Group code.
+ */
 const teams = [
   {
     id: 1,

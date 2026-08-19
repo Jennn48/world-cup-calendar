@@ -1,3 +1,11 @@
+/**
+ * A World Cup group.
+ *
+ * @typedef {Object} Group
+ * @property {number} id - Unique group identifier.
+ *@property {string} name - Group name.
+ * @property {string} code - Group letter.
+ */
 const groups = [
   {
     "id": 1,

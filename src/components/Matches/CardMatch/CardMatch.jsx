@@ -4,10 +4,18 @@ import "./style.css";
 
 function CardMatch(props) {
 
+  /**
+   * Send a score to the parent component.
+   * @param {number} score - Home-team score
+   */
   function setHomeScore(score) {
     props.updateMatchScore(props.match.id, "home", score);
   }
 
+  /**
+   * Send a score to the parent component.
+   *  * @param {number} score - Away-team score
+   */
   function setAwayScore(score) {
     props.updateMatchScore(props.match.id, "away", score);
   }

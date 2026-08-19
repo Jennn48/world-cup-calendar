@@ -1,4 +1,14 @@
 import { getTeamsByGroup, getMatchTeams } from "./auxiliaryFunctions.js";
+
+/**
+ * Calculates the group-stage standings for every team.
+ * 
+ * @param {Matches[]} matches - Group-stage matches.
+ * @param {Groups[]} groups - Tournament groups.
+ * @param {Teams[]} teams - Array containing all tournament teams.
+ * @param {MatchTeams[]} matchTeams - Relationship between macth and participant teams.
+ * @returns {Standings[]} Current standings for all group-stage teams.
+ */
 function calculateStandings(matches, groups, teams, matchTeams) {    
   const table = groups.flatMap((group) => {
     const groupTeams = getTeamsByGroup(teams, group.code);
