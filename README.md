@@ -46,7 +46,7 @@ Hopefully, FIFA will eventually adopt a simpler and more transparent qualificati
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone [World Cup Calendar](https://github.com/Jennn48/world-cup-calendar.git)
 ```
 
 Navigate to the project directory:
@@ -96,6 +96,8 @@ The project is organized into React components, tournament data, and reusable ut
             classificationFc.js
             standings.js
 ```
+
+---
 
 # Dynamic Knockout Resolution
 
