@@ -1,5 +1,5 @@
-import TeamCard from "../TeamCard/TeamCard.jsx";
-import Date from "../Date/Date.jsx";
+import TeamCard from "./TeamCard.jsx";
+import Date from "./Date.jsx";
 import "./style.css";
 
 function CardMatch(props) {

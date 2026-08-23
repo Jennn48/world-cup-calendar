@@ -1,3 +1,28 @@
+section.group {
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  row-gap: 25px;
+}
+
+div.nav-bar {
+  flex-basis: 100%;
+}
+
+h2 {
+  font-size: 3rem;
+  color: darkgrey;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 div.card-group {
   width: 295px;
   padding: 0 10px 10px 10px;
@@ -39,4 +64,19 @@ div.card-group th {
   color: darkgray;
   text-align: left;
   font-weight: lighter;
+}
+
+div.card-group .team {
+  background-color: #fff;
+  max-width: 130px;
+  overflow: hidden;
+  text-wrap: nowrap;
+
+  display: flex;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+
+div.card-group .team * {
+  margin: 0;
 }

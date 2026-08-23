@@ -1,13 +1,14 @@
-import MatchBracket from "../MatchBracket/MatchBracket.jsx";
+import MatchBracket from "./MatchBracket.jsx";
 import "./style.css";
-function Round16(props) {
+
+function Quarter(props) {
   return (
     <>
-      <div className="round r16">
+      <div className="round quarter">
         {props.matches.map((match) => {
-          let flagLocal = match.homeTeam?.flagUrl ?? "/images/blank.webp";
+          let flagLocal = match.homeTeam?.flagUrl ?? "images/blank.webp";
 
-          let flagAway = match.awayTeam?.flagUrl ?? "/images/blank.webp";
+          let flagAway = match.awayTeam?.flagUrl ?? "images/blank.webp";
           return (
             <MatchBracket
               flagLocal={flagLocal}
@@ -21,4 +22,4 @@ function Round16(props) {
   );
 }
 
-export default Round16;
+export default Quarter;

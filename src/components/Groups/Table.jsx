@@ -1,4 +1,4 @@
-import Team from "../Team/Team.jsx";
+import Team from "./Team.jsx";
 import "./style.css";
 
 function Table(props) {

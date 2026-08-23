@@ -1,5 +1,5 @@
 import  worldCup  from "/images/world-cup.png";
-import Final from "../Final/Final.jsx";
+import Final from "./Final.jsx";
 import "./style.css";
 
 function CenterBracket(props) {

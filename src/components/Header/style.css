@@ -1,0 +1,86 @@
+header {
+  width: 100%;
+  background-color: black;
+  padding: 10px 20px;
+}
+
+header ul.nav-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+header ul.nav-bar a {
+  text-decoration: none;
+  color: goldenrod;
+  font-weight: bolder;
+}
+
+section.toggle-div {
+  height: 100px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle {
+  position: relative;
+  background-color: #ddd;
+  height: 50px;
+  width: 300px;
+  border-radius: 25px;
+
+  display: flex;
+}
+
+.toggle button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+
+  flex: 1;
+}
+
+.thumb {
+  position: absolute;
+  width: 33.33%;
+  height: 100%;
+  background: #aaa;
+  transition: 0.3s;
+  border-radius: 25px;
+}
+
+
+img {
+  width: 16px;
+}
+
+section.hero {
+  height: 80vh;
+  border-bottom: 1px solid darkgray;
+  padding: 100px 0;
+
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  line-height: normal;
+  color: goldenrod;
+  font-size: 500%;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 40px;
+
+  flex: 1;
+}
+
+section.hero img {
+  min-height: 400px;
+  min-width: 400px;
+  max-width: 400px;
+
+  flex: 2;
+}

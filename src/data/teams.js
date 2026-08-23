@@ -82,7 +82,7 @@ const teams = [
   {
     id: 11,
     name: "Escocia",
-    flagUrl: "/images/scotlanflag.webp",
+    flagUrl: "images/scotlanflag.webp",
     group: "C",
   },
   {

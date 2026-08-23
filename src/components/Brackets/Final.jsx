@@ -1,10 +1,10 @@
-import MatchBracket from "../MatchBracket/MatchBracket.jsx";
+import MatchBracket from "./MatchBracket.jsx";
 import "./style.css";
 
 function Final(props) {
-  let flagLocal =props.matches.homeTeam?.flagUrl ?? "/images/blank.webp";
+  let flagLocal =props.matches.homeTeam?.flagUrl ?? "images/blank.webp";
 
-  let flagAway = props.matches.awayTeam?.flagUrl ?? "/images/blank.webp";
+  let flagAway = props.matches.awayTeam?.flagUrl ?? "images/blank.webp";
   return (
     <>
       <div className="round final">

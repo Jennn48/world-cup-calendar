@@ -1,13 +1,13 @@
-import MatchBracket from "../MatchBracket/MatchBracket.jsx";
+import MatchBracket from "./MatchBracket.jsx";
 import "./style.css";
 function Round8(props) {
   return (
     <>
       <div className="round r8">
         {props.matches.map((match) => {
-          let flagLocal = match.homeTeam?.flagUrl ?? "/images/blank.webp";
+          let flagLocal = match.homeTeam?.flagUrl ?? "images/blank.webp";
 
-          let flagAway = match.awayTeam?.flagUrl ?? "/images/blank.webp";
+          let flagAway = match.awayTeam?.flagUrl ?? "images/blank.webp";
           return (
             <MatchBracket
               flagLocal={flagLocal}

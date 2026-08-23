@@ -1,4 +1,4 @@
-import Table from "../Table/Table.jsx";
+import Table from "./Table.jsx";
 import "./style.css";
 
 function Groups(props) {
@@ -22,15 +22,4 @@ function Groups(props) {
     </>
   );
 }
-
-// {
-//     grupo: "A",
-//     equipos: [
-//       { nombre: "Mexico", bandera: "https://flagsapi.com/MX/flat/64.png" },
-//       { nombre: "Corea del Sur", bandera: "https://flagsapi.com/KR/flat/64.png" },
-//       { nombre: "Sudafrica", bandera: "https://flagsapi.com/ZA/flat/64.png" },
-//       { nombre: "Chequia", bandera: "https://flagsapi.com/CZ/flat/64.png" }
-//     ]
-//   }
-
 export default Groups;

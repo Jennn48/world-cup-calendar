@@ -1,6 +1,6 @@
-import LeftBracket from "../LeftBracket/LeftBracket.jsx";
-import CenterBracket from "../CenterBracket/CenterBracket.jsx";
-import RightBracket from "../RightBracket/RightBracket.jsx";
+import LeftBracket from "./LeftBracket.jsx";
+import CenterBracket from "./CenterBracket.jsx";
+import RightBracket from "./RightBracket.jsx";
 import "./style.css";
 
 

@@ -1,8 +1,8 @@
-import CardMatch from "../CardMatch/CardMatch.jsx";
+import CardMatch from "./CardMatch.jsx";
 import {
   getMatchTeams,
   getTeamById,
-} from "../../../utils/auxiliaryFunctions.js";
+} from "../../utils/auxiliaryFunctions.js";
 
 function MatchItem(props) {
     let readyMatches = props.matches.map((match) => {

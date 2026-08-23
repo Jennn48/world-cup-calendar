@@ -1,7 +1,7 @@
-import Round16 from "../Round16/Round16.jsx";
-import Round8 from "../Round8/Round8.jsx";
-import Quarter from "../Quarter/Quarter.jsx";
-import Semi from "../Semi/Semi.jsx";
+import Round16 from "./Round16.jsx";
+import Round8 from "./Round8.jsx";
+import Quarter from "./Quarter.jsx";
+import Semi from "./Semi.jsx";
 import "./style.css";
 
 function RightBracket(props) {
