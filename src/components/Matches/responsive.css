@@ -1,0 +1,82 @@
+@media (max-width: 660px) {
+    section.matches {
+        padding: 0;
+        margin: 0;
+    }
+
+    div.card-match {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .group-name {
+        order: 3;
+    }
+
+    #teams {
+        border-right: none;
+        
+        flex-direction: row;
+        flex-basis: 40px;
+    }
+
+    /* todo el div */
+    #teams .team {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 30px 30px;
+        align-items: center;
+        justify-items: center;
+    }
+
+    /* primer equipo img puntuacion y nombre */
+    #teams div.team:first-child img {
+        width: 70px;
+        
+        grid-area: 1/1/2/2;
+    }
+
+    #teams div.team:first-child .score {
+        grid-area: 1/2/2/3;
+    }
+
+    #teams div.team:first-child p:nth-child(2) {
+        text-wrap: nowrap;
+        overflow: hidden;
+        width: 70px;
+        
+        grid-area: 2/1/3/2;
+    }
+
+
+    /* segundo equipo img p
+  border-radius: 5px;untuacion y nombre */
+    #teams div.team:nth-child(2) img {
+        width: 70px;
+        border-radius: 5px;
+        
+        grid-area: 1/2/2/3;
+    }
+
+    #teams div.team:nth-child(2) .score {
+        grid-area: 1/1/2/2;
+    }
+
+    #teams div.team:nth-child(2) p:nth-child(2) {
+        width: 70px;
+        text-wrap: nowrap;
+        overflow: hidden;
+        
+        grid-area: 2/2/3/3;
+    }
+
+    #date {
+        display: flex;
+        order: -1;
+        justify-self: auto;
+        align-self: auto;
+        gap: 10px;
+    }
+}

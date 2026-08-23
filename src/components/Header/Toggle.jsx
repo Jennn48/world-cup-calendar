@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./style.css";
+import "./responsive.css";
 
 function Toggle(props) {
   const [position, setPosition] = useState("0");

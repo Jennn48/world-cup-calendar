@@ -1,30 +1,3 @@
-.center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.center > p {
-  color: rgb(181, 138, 30);
-  font-weight: bold;
-  font-size: 50px;
-  text-transform: uppercase;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.cup {
-  width: 250px;
-}
-
-.round {
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
 section.keys{
   width: 100%;
   margin: 20px 0;
@@ -43,11 +16,38 @@ div.title {
 }
 
 .bracket {
-  width: 100%;
   height: 80vh;
+  width: 100%;
   
   display: grid;
   grid-template-columns: 1fr 30% 1fr;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cup {
+  width: 250px;
+}
+
+.center > p {
+  color: rgb(181, 138, 30);
+  font-weight: bold;
+  font-size: 50px;
+  text-transform: uppercase;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.round {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .side{
@@ -65,7 +65,7 @@ div.title {
   gap: 1px;
 }
 
-.date{
+.match .date{
   flex: 1 1 100%;
   text-align: center;
   color: #04335d;
@@ -74,9 +74,9 @@ div.title {
 }
 
 .match img {
-  min-width: 45%;
   height: 90%;
-  
+  width: 24px;
+  min-width: 45%;
   border: 2px solid #005baa;
   border-radius: 8px;
 }

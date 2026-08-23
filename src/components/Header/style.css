@@ -16,6 +16,47 @@ header ul.nav-bar a {
   font-weight: bolder;
 }
 
+section.hero {
+  height: 80vh;
+  border-bottom: 1px solid darkgray;
+  padding: 100px 0;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+}
+
+div.title {
+  flex-basis: 100%;
+}
+
+h1 {
+  line-height: normal;
+  color: goldenrod;
+  font-size: 4.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 40px;
+
+  flex: 1;
+}
+
+h2 {
+  font-size: 3rem;
+  color: darkgrey;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+section.hero img {
+  height: 400px;
+  width: 400px;
+  max-width: 400px;
+
+  flex: 2;
+}
+
 section.toggle-div {
   height: 100px;
   
@@ -25,10 +66,10 @@ section.toggle-div {
 }
 
 .toggle {
-  position: relative;
-  background-color: #ddd;
   height: 50px;
   width: 300px;
+  position: relative;
+  background-color: #ddd;
   border-radius: 25px;
 
   display: flex;
@@ -44,43 +85,10 @@ section.toggle-div {
 }
 
 .thumb {
-  position: absolute;
   width: 33.33%;
   height: 100%;
+  position: absolute;
   background: #aaa;
   transition: 0.3s;
   border-radius: 25px;
-}
-
-
-img {
-  width: 16px;
-}
-
-section.hero {
-  height: 80vh;
-  border-bottom: 1px solid darkgray;
-  padding: 100px 0;
-
-  display: flex;
-  align-items: center;
-}
-
-h1 {
-  line-height: normal;
-  color: goldenrod;
-  font-size: 500%;
-  margin-bottom: 10px;
-  text-align: center;
-  padding: 40px;
-
-  flex: 1;
-}
-
-section.hero img {
-  min-height: 400px;
-  min-width: 400px;
-  max-width: 400px;
-
-  flex: 2;
 }

@@ -1,5 +1,6 @@
 import copaMundial from "/images/copaMundial.png";
 import "./style.css";
+import "./responsive.css";
 
 function Hero() {
   return (

@@ -6,21 +6,13 @@ section.group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 10px;
   row-gap: 25px;
 }
 
-div.nav-bar {
+div.title {
   flex-basis: 100%;
-}
-
-h2 {
-  font-size: 3rem;
-  color: darkgrey;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  text-align: center;
 }
 
 div.card-group {
@@ -41,13 +33,13 @@ div.card-group table * {
   margin: 1px 2px;
 }
 
+
 div.card-group table span {
   font-weight: 900;
   color: gray;
 }
 
 div.card-group caption {
-  text-align: left;
   font-weight: 900;
   font-size: 1.5rem;
   color: black;
@@ -73,10 +65,15 @@ div.card-group .team {
   text-wrap: nowrap;
 
   display: flex;
+  align-items: center;
   gap: 2px;
   flex-wrap: nowrap;
 }
 
 div.card-group .team * {
   margin: 0;
+}
+
+img {
+  width: 16px;
 }

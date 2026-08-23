@@ -1,4 +1,5 @@
 import "./style.css";
+import "./responsive.css";
 
 function Header() {
   return (

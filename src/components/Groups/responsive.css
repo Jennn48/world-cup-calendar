@@ -1,0 +1,31 @@
+@media (max-width: 660px) {
+    section.group {
+        padding: 0;
+        margin: 0;
+    }
+
+    div.card-group {
+        max-width: 220px;
+        min-width: 220px;
+
+        padding: 0;
+    }
+
+    div.card-group > * {
+        font-size: 0.5rem;
+    }
+
+    div.card-group table {
+        padding-bottom: 10px;
+    }
+
+    div.card-group table * {
+        margin: 0;
+    }
+
+    div.card-group caption {
+        font-size: 1.3rem;
+        left: 20%;
+    }
+
+}

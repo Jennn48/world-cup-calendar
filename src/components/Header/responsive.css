@@ -1,0 +1,46 @@
+@media (max-width: 660px) {
+    header {
+        width: 100%;
+    }
+
+    section.hero {
+        height: 50%;
+        border-bottom: none;
+        padding: 10px;
+        margin-bottom: 20px;
+        
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        padding: 0;
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    section.hero img {
+        max-height: 150px;
+        max-width: 160px;
+        margin-bottom: 20px;
+        
+        order: -1;
+    }
+
+    section.toggle-div {
+        height: 20px;
+        min-width: 350px;
+    }
+
+    .toggle {
+        height: 30px;
+        width: 50%;
+        margin-bottom: 30px;
+    }
+
+    
+
+}

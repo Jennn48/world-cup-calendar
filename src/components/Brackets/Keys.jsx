@@ -2,8 +2,7 @@ import LeftBracket from "./LeftBracket.jsx";
 import CenterBracket from "./CenterBracket.jsx";
 import RightBracket from "./RightBracket.jsx";
 import "./style.css";
-
-
+import "./responsive.css";
 function Keys(props) {  
   
   return (

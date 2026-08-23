@@ -1,5 +1,6 @@
 import MatchItem from "./MatchItem.jsx";
 import "./style.css";
+import "./responsive.css";
 
 function Matches(props) {
   const ROUND_CONFIG = [
