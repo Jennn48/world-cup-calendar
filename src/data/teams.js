@@ -82,7 +82,8 @@ const teams = [
   {
     id: 11,
     name: "Escocia",
-    flagUrl: "images/scotlanflag.webp",
+    flagUrl: "/images/scotlandflag.webp",
+    code: "UK",
     group: "C",
   },
   {
@@ -172,8 +173,8 @@ const teams = [
   {
     id: 24,
     name: "Suecia",
-    flagUrl: "https://flagsapi.com/UA/flat/64.png",
-    code: "UA",
+    flagUrl: "https://flagsapi.com/SE/flat/64.png",
+    code: "SE",
     group: "F",
   },
   {
