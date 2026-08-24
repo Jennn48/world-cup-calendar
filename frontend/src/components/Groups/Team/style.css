@@ -1,0 +1,14 @@
+div.card-group .team {
+  background-color: #fff;
+  max-width: 130px;
+  overflow: hidden;
+  text-wrap: nowrap;
+
+  display: flex;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+
+div.card-group .team * {
+  margin: 0;
+}

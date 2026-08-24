@@ -1,0 +1,72 @@
+section.matches{
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  row-gap: 25px;
+}
+
+div.title {
+  flex-basis: 100%;
+}
+
+div.card-match {
+  width: 295px;
+  padding: 0 10px 10px 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(128, 128, 128, 0.6);
+  font-size: 0.9rem;
+  min-width: 270px;
+  color: darkgray;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 30px 30px 30px;
+}
+
+.group-name {
+  font-weight: lighter;
+  align-self: center;
+  grid-area: 1/1/2/3;
+}
+
+#teams {
+  border-right: 1px solid darkgray;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  grid-area: 2/1/4/2;
+}
+
+#teams .team {
+  font-weight: 900;
+
+  display: flex;
+  gap: 5px;
+}
+
+img  {
+  width: 16px;
+}
+
+#teams .team .score {
+  margin-left: auto;
+  margin-right: 10px;
+  color: gray;
+  font-weight: bolder;
+}
+
+#date {
+  text-align: center;
+
+  justify-self: center;
+  align-self: center;
+  grid-area: 2/2/4/3;
+}

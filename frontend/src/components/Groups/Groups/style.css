@@ -1,0 +1,24 @@
+section.group {
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  row-gap: 25px;
+}
+
+div.nav-bar {
+  flex-basis: 100%;
+}
+
+h2 {
+  font-size: 3rem;
+  color: darkgrey;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}

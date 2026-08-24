@@ -1,0 +1,35 @@
+section.toggle-div {
+  height: 100px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle {
+  position: relative;
+  background-color: #ddd;
+  height: 50px;
+  width: 300px;
+  border-radius: 25px;
+
+  display: flex;
+}
+
+.toggle button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+
+  flex: 1;
+}
+
+.thumb {
+  position: absolute;
+  width: 33.33%;
+  height: 100%;
+  background: #aaa;
+  transition: 0.3s;
+  border-radius: 25px;
+}
