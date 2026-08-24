@@ -4,10 +4,11 @@
  * @typedef {Object} Match
  * @property {number} id - Unique match identifier.
  * @property {string} round - Tournament round.
- * @property {string|null} groupCode - Group letter group-stage matches.
+ * @property {string|null} groupCode - Group code for group-stage matches. Null for knockout-stage matches.
  * @property {string} matchNumber - Match identifier in tournament regulations.
  * @property {string} matchTime - Match time.
  * @property {string} matchDate - Match date.
+ * @property {"scheduled"|"played"} status - Current status of the match.
  * @property {number|null} homeScore - Home team score.
  * @property {number|null} awayScore - Away team score.
  */

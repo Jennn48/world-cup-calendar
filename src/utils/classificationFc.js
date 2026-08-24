@@ -113,8 +113,6 @@ function resolveMatchTeams(
       );
 
       mt.teamId = team?.id ?? null;
-      if (mt.source === "W74") {
-      }
     }
   });
 

@@ -4,7 +4,7 @@
  * @typedef {Object} MatchTeam
  * @property {number} id - Unique matchTeam identifier.
  * @property {number} matchId - Identifier of the related match.
- * @property {"home"|"away"} slot - Indicate which team occupies the home or away side of the match, even though neither team is playing in its own stadium.
+ * @property {"home"|"away"} slot - Indicates which team occupies the home or away side of the match, even though neither team is playing in its own stadium.
  * @property {number|null} teamId - Resolved team identifier, if available.
  * @property {string|null} source - Source used to determine the participant, if needed.
  */
