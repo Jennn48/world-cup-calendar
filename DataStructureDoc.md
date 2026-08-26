@@ -2,7 +2,7 @@
 
 This doc defines the structure, properties, usage, dependencies and relationships of the four main data structure in the app to support a smooth migration to a database system.
 
-## Groupos
+## Groups
 Define all world cup groups one by one.
 
 ### Structure
@@ -20,7 +20,6 @@ name(string) - Group name (`Grupo ${code}`).
 code(string) - Unique group letter used to identify the group.
 
 ### Where is used (read properties)
-App.jsx -► calculateStandings()
 App.jsx -► resolveMatchTeams()
 App.jsx -► classifiedGroups()
 

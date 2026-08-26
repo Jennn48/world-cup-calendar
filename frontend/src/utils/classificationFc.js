@@ -3,7 +3,7 @@ import { getTeamBySource, sortTeams } from "../utils/auxiliaryFunctions.js";
 
 /**
  * Retrieves the third-placed team from every group.
- * 
+ *
  * @param {Team[]} teams - Array containing all tournament teams.
  * @param {Standing[]} table - Current group standings.
  * @param {Match[]} matches - All tournament matches.
@@ -57,66 +57,61 @@ function getKeyAnexoCSorted(third, teams) {
  * @param {MatchTeams[]} matchTeams - Relationship between macth and participant teams.
  * @returns {MatchTeams[]} A copy of MatchTeams with teamId resolved in order of source.
  */
-function resolveMatchTeams(
-  table,
-  groups,
-  teams,
-  matches,
-  matchTeams,
-) {
-  //Encontrar los 12 third
+function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
+  if (groups.length > 0) {
+    //Encontrar los 12 third
+    let resolvedMatchTeams = matchTeams.map((mt) => ({ ...mt }));
+    let third = getThirdPlace(
+      teams,
+      table,
+      matches,
+      resolvedMatchTeams,
+      groups,
+    );
 
-  let resolvedMatchTeams = matchTeams.map((mt) => ({ ...mt }));
-  let third = getThirdPlace(
-    teams,
-    table,
-    matches,
-    resolvedMatchTeams,
-    groups,
-  );
+    //Encontrar los mejores 8 third
+    third = sortTeams(third).slice(0, 8);
 
-  //Encontrar los mejores 8 third
-  third = sortTeams(third).slice(0, 8);
+    //Encontrar keyAnexoCSorted
+    let keyAnexoCSorted = getKeyAnexoCSorted(third, teams);
 
-  //Encontrar keyAnexoCSorted
-  let keyAnexoCSorted = getKeyAnexoCSorted(third, teams)
+    //Encontrar cruces
+    let thirdCruces2 = anexoC[keyAnexoCSorted];
 
-  //Encontrar cruces
-  let thirdCruces2 = anexoC[keyAnexoCSorted];
+    //Sustituir en matchTeams teamId by source
+    resolvedMatchTeams.forEach((mt) => {
+      if (mt.source === null) return;
+      if (mt.source === "third") {
+        let otherSource = resolvedMatchTeams.find(
+          (m) => m.matchId === mt.matchId && m.slot !== mt.slot,
+        ).source;
+        let mainSource = thirdCruces2
+          .find((c) => c.includes(otherSource))
+          .slice(0, 2);
+        let team = getTeamBySource(
+          mainSource,
+          teams,
+          table,
+          matches,
+          resolvedMatchTeams,
+        );
 
-  //Sustituir en matchTeams teamId by source
-  resolvedMatchTeams.forEach((mt) => {
-    if (mt.source === null) return;
-    if (mt.source === "third") {
-      let otherSource = resolvedMatchTeams.find(
-        (m) => m.matchId === mt.matchId && m.slot !== mt.slot,
-      ).source;
-      let mainSource = thirdCruces2
-        .find((c) => c.includes(otherSource))
-        .slice(0, 2);
-      let team = getTeamBySource(
-        mainSource,
-        teams,
-        table,
-        matches,
-        resolvedMatchTeams,
-      );
+        mt.teamId = team?.id ?? null;
+      } else {
+        let team = getTeamBySource(
+          mt.source,
+          teams,
+          table,
+          matches,
+          resolvedMatchTeams,
+        );
 
-      mt.teamId = team?.id ?? null;
-    } else {
-      let team = getTeamBySource(
-        mt.source,
-        teams,
-        table,
-        matches,
-        resolvedMatchTeams,
-      );
+        mt.teamId = team?.id ?? null;
+      }
+    });
 
-      mt.teamId = team?.id ?? null;
-    }
-  });
-
-  return resolvedMatchTeams;
+    return resolvedMatchTeams;
+  } else return [];
 }
 
 export default resolveMatchTeams;

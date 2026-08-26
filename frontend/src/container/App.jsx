@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { matchesData, groups, matchTeams, teams } from "../data";
+import { useState, useEffect } from "react";
 import {
   getTeamsByGroup,
   calculatePosition,
@@ -17,29 +16,52 @@ import {
 } from "../components/index.js";
 import resolveMatchTeams from "../utils/classificationFc.js";
 
+import { getGroups, getMatches, getTeams, getMatchTeams } from "../api/index.js";
+
 function App() {
   const [toggle, setToggle] = useState("groups");
-  const [matches, setMatches] = useState(matchesData);
+  const [matches, setMatches] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [matchTeams, setMatchTeams] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const groupData = await getGroups();
+      const matchData = await getMatches();
+      const teamData = await getTeams();
+      const matchTeamsData = await getMatchTeams();
+
+      setGroups(groupData);
+      setMatches(matchData);
+      setTeams(teamData);
+      setMatchTeams(matchTeamsData);
+    })();
+  }, []);
+
+
+  if (groups.length === 0) {
+    return <span className="loader"></span>;
+  }
 
   /**
- * A team row in the standings table.
- *
- * @typedef {Object} Standing
- * @property {number} id - Team identifier.
- * @property {string} name - Team name.
- * @property {string} flag - URL of the team's flag.
- * @property {number} pj - Matches played.
- * @property {number} gf - Goals for.
- * @property {number} gc - Goals against.
- * @property {number} dg - Goal difference.
- * @property {number} p - Matches lost.
- * @property {number} g - Matches won.
- * @property {number} e - Draws.
- * @property {number} ptos - Points.
- */
+   * A team row in the standings table.
+   *
+   * @typedef {Object} Standing
+   * @property {number} id - Team identifier.
+   * @property {string} name - Team name.
+   * @property {string} flag - URL of the team's flag.
+   * @property {number} pj - Matches played.
+   * @property {number} gf - Goals for.
+   * @property {number} gc - Goals against.
+   * @property {number} dg - Goal difference.
+   * @property {number} p - Matches lost.
+   * @property {number} g - Matches won.
+   * @property {number} e - Draws.
+   * @property {number} ptos - Points.
+   */
   let standings = calculateStandings(
     matches.filter((m) => m.round === "GROUP_STAGE"),
-    groups,
     teams,
     matchTeams,
   );
@@ -52,19 +74,14 @@ function App() {
     matchTeams,
   );
 
-  const classifiedGroups = groups.map((group) => ({
-    grupo: group.code,
-    equipos: calculatePosition(getTeamsByGroup(teams, group.code), standings),
-  }));
-
   /**
- * A resolved match prepared for bracket rendering.
- *
- * @typedef {Object} BracketMatch
- * @property {Match} match - Match information.
- * @property {Team|undefined} homeTeam - Home team information.
- * @property {Team|undefined} awayTeam - Away team information.
- */
+   * A resolved match prepared for bracket rendering.
+   *
+   * @typedef {Object} BracketMatch
+   * @property {Match} match - Match information.
+   * @property {Team|undefined} homeTeam - Home team information.
+   * @property {Team|undefined} awayTeam - Away team information.
+   */
   const bracketData = {
     round16: getBracketData(
       matches.filter((m) => m.round === "ROUND_OF_32") ?? [],
@@ -92,6 +109,11 @@ function App() {
       teams,
     ),
   };
+
+  const classifiedGroups = groups.map((group) => ({
+    grupo: group.code,
+    equipos: calculatePosition(getTeamsByGroup(teams, group.code), standings),
+  }));
 
   /**
    * Changes the currently selected application section.

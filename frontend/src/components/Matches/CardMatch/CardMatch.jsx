@@ -43,7 +43,7 @@ function CardMatch(props) {
           />
         </div>
 
-        <Date date={props.match.matchDate} hour={props.match.matchTime} />
+        <Date date={props.match.matchDate} time={props.match.matchTime} />
       </div>
     </>
   );

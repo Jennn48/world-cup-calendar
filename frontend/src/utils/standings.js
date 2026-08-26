@@ -2,40 +2,35 @@ import { getTeamsByGroup, getMatchTeams } from "./auxiliaryFunctions.js";
 
 /**
  * Calculates the group-stage standings for every team.
- * 
+ *
  * @param {Matches[]} matches - Group-stage matches.
- * @param {Groups[]} groups - Tournament groups.
  * @param {Teams[]} teams - Array containing all tournament teams.
  * @param {MatchTeams[]} matchTeams - Relationship between macth and participant teams.
  * @returns {Standings[]} Current standings for all group-stage teams.
  */
-function calculateStandings(matches, groups, teams, matchTeams) {    
-  const table = groups.flatMap((group) => {
-    const groupTeams = getTeamsByGroup(teams, group.code);
-
-    return groupTeams.map((team) => ({
-      id: team.id,
-      name: team.name,
-      flag: team.flagUrl,
-      pj: 0,
-      gf: 0,
-      gc: 0,
-      dg: 0,
-      p: 0,
-      g: 0,
-      e: 0,
-      ptos: 0,
-    }));
-  });
+function calculateStandings(matches, teams, matchTeams) {
+  const table = teams.map((team) => ({
+    id: team.id,
+    name: team.name,
+    flag: team.flagUrl,
+    pj: 0,
+    gf: 0,
+    gc: 0,
+    dg: 0,
+    p: 0,
+    g: 0,
+    e: 0,
+    ptos: 0,
+  }));
 
   matches.forEach((match) => {
-    const awayScore =match.awayScore !== null ? Number(match.awayScore) : null;
+    const awayScore = match.awayScore !== null ? Number(match.awayScore) : null;
     const homeScore = match.homeScore !== null ? Number(match.homeScore) : null;
     const teamSlots = getMatchTeams(match, matchTeams, teams);
 
     let tableHome = table.find((team) => team.id === teamSlots.home.team.id);
     let tableAway = table.find((team) => team.id === teamSlots.away.team.id);
-    
+
     //Matches played
     if (homeScore === null && awayScore === null) return;
 
