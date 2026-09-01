@@ -1,5 +1,6 @@
 import anexoC from "./anexoC.js";
 import { getTeamBySource, sortTeams } from "../utils/auxiliaryFunctions.js";
+import { setMatchTeamSource } from "../api/matchTeams.js";
 
 /**
  * Retrieves the third-placed team from every group.
@@ -79,7 +80,7 @@ function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
     let thirdCruces2 = anexoC[keyAnexoCSorted];
 
     //Sustituir en matchTeams teamId by source
-    resolvedMatchTeams.forEach((mt) => {
+    resolvedMatchTeams.forEach(async (mt) => {
       if (mt.source === null) return;
       if (mt.source === "third") {
         let otherSource = resolvedMatchTeams.find(
@@ -97,6 +98,11 @@ function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
         );
 
         mt.teamId = team?.id ?? null;
+        //Check they are diffrent
+        let prev = matchTeams.find(prevMt => prevMt.id === mt.id).teamId;
+        if (mt.teamId !== prev){
+          await setMatchTeamSource(mt.matchId, mt.slot, mt.teamId);
+        }
       } else {
         let team = getTeamBySource(
           mt.source,
@@ -107,6 +113,11 @@ function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
         );
 
         mt.teamId = team?.id ?? null;
+        //Check they are diffrent
+        let prev = matchTeams.find(prevMt => prevMt.id === mt.id).teamId;
+        if (mt.teamId !== prev){
+          await setMatchTeamSource(mt.matchId, mt.slot, mt.teamId);
+        }
       }
     });
 

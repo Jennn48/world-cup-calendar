@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
   res.json({ message: response.rows });
 });
 
-app.use("/api/tournaments", tournamentRoutes);
+app.use("/api/tournament", tournamentRoutes);
 
 app.use("/api/teams", teamRoutes);
 

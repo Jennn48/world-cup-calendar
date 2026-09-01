@@ -1,6 +1,7 @@
 import {getGroups} from "./groups.js";
-import {getMatches} from "./matches.js";
+import {getMatches, setMatchScore} from "./matches.js";
 import {getTeams} from "./teams.js";
-import { getMatchTeams } from "./matchTeams.js";
+import { getMatchTeams, setMatchTeamSource } from "./matchTeams.js";
+import { resetTournament, setRealTournament } from "./tournament.js";
 
-export {getGroups, getMatches, getTeams, getMatchTeams};
+export {getGroups, getMatches, setMatchScore, getTeams, getMatchTeams, setMatchTeamSource, resetTournament, setRealTournament};

@@ -1,4 +1,3 @@
-
 img {
   width: 16px;
 }
@@ -21,6 +20,37 @@ h1 {
   padding: 40px;
 
   flex: 1;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.hero-container .button-container {
+  padding: 10px;
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.hero-container button {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: goldenrod;
+  color: #fff;
+  font-weight: 700;
+  font-size: 80%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hero-container button:hover {
+  background-color: rgb(190, 144, 30);
+  transform: scale(1.05);
 }
 
 section.hero img {

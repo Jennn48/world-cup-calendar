@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getGroups() {
    try {
-     const response = await fetch(`http://localhost:3000/api/groups`);
+     const response = await fetch(`${API_URL}/groups`);
     if (!response.ok) {
         throw new Error("Failed to fetch groups.");
     }

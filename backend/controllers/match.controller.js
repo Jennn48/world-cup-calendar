@@ -74,3 +74,52 @@ export const getTeamsByMatch = async (req, res) => {
     res.status(500).json({ error: "Error retrieving matches." });
   }
 };
+
+export const setMatchScore = async (req, res) => {
+  let id = parseInt(req.params.id);
+  const { homeScore, awayScore } = req.body;
+
+  const fields = [];
+  const values = [];
+
+  //Si se envia homeScore
+  if (homeScore !== undefined) {
+    values.push(homeScore);
+    fields.push(`home_score = $${values.length}`);
+  }
+
+  if (awayScore !== undefined) {
+    values.push(awayScore);
+    fields.push(`away_score = $${values.length}`);
+  }
+
+  if (fields.length === 0) {
+    return res.status(400).json({
+      message: "No score provided",
+    });
+  }
+
+  values.push(id);
+
+  try {
+    const result = await db.query(
+      `UPDATE match
+      SET ${fields.join(", ")}
+      WHERE id = $${values.length}
+      RETURNING *
+      `,
+      values,
+    );
+
+    if (result.rows.length) {
+      res.json(result.rows);
+    } else {
+      console.log(result.rows.length);
+      res.status(404).json({ error: "Match not found." });
+    }
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({ error: "Error updating match." });
+  }
+};
