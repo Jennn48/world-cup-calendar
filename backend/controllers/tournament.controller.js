@@ -1,29 +1,27 @@
 import db from "../db/db.js";
-import { realResults } from "../data/realTournament.js";
+import { getAllTournaments, getOneTournament, reset, set } from "../services/tournament.service.js";
 
 export const getTournaments = async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM tournament ORDER BY id");
+    const tournaments = await getAllTournaments();
 
-    res.json(result.rows);
+    res.json(tournaments);
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
       error: "Error retrieving tournaments",
-    });
+    }); 
   }
 };
 
 export const getTournamentById = async (req, res) => {
-  let id = parseInt(req.params.id);
+  let id = Number(req.params.id);
 
   try {
-    const result = await db.query("SELECT * FROM tournament WHERE id = $1", [
-      id,
-    ]);
+    const tournament = await getOneTournament(id);
 
-    res.json(result.rows);
+    res.json(tournament);
   } catch (error) {
     console.error(error);
 
@@ -35,21 +33,7 @@ export const getTournamentById = async (req, res) => {
 
 export const resetTournament = async (req, res) => {
   try {
-    await db.query("BEGIN");
-
-    await db.query(`
-      UPDATE match
-      SET home_score = NULL,
-          away_score = NULL
-    `);
-
-    await db.query(`
-      UPDATE match_team
-      SET team_id = NULL
-      WHERE source IS NOT NULL
-    `);
-
-    await db.query("COMMIT");
+    await reset();
 
     res.json({
       message: "Tournament reset successfully",
@@ -67,22 +51,7 @@ export const resetTournament = async (req, res) => {
 
 export const setRealTournament = async (req, res) => {
   try {
-    await db.query("BEGIN");
-
-    for (const match of realResults) {
-      await db.query(
-        `UPDATE match 
-        SET home_score = $1,
-            away_score = $2
-        WHERE id = $3`,[
-          match.homeScore,
-          match.awayScore,
-          match.matchId
-        ]
-      );
-    }
-
-    await db.query("COMMIT");
+    await set();
 
     res.json({
       message: "Real tournament loaded successfully."

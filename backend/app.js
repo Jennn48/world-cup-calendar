@@ -16,17 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", async (req, res) => {
-    let response;
-  try {
-    response = await db.query("SELECT * FROM team WHERE id=$1", [24]);
-  } catch (error){
-    console.error(error);
-
-    res.status(500).json({
-      error: "Error retrieving teams",
-    });
-  }
-  res.json({ message: response.rows });
+  res.json({ message: "API is successfully running." });
 });
 
 app.use("/api/tournament", tournamentRoutes);

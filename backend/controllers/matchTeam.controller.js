@@ -1,19 +1,11 @@
-import db from "../db/db.js";
+import { getAllMatchTeams, setOneMatchTeamSource } from "../services/matchTeam.service.js";
+
 
 export const getMatchTeams = async (req, res) => {
   try {
-    const result = await db.query(
-      `SELECT
-      id,
-      slot,
-      source,
-      match_id AS "matchId",
-      team_id AS "teamId"
-    FROM match_team
-    ORDER BY id`,
-    );
+    const matchTeams = await getAllMatchTeams();
 
-    res.json(result.rows);
+    res.json(matchTeams);
   } catch (error) {
     console.error(error);
 
@@ -22,20 +14,14 @@ export const getMatchTeams = async (req, res) => {
 };
 
 export const setMatchTeamSource = async (req, res) => {
-  let matchId = parseInt(req.params.id);
+  let matchId = Number(req.params.id);
   let slot =req.params.slot;
-  let teamId = parseInt(req.body.teamId);
+  let teamId = Number(req.body.teamId);
 
   try {
-    const result = await db.query(
-      `UPDATE match_team
-      SET team_id = $1
-      WHERE match_id = $2 AND slot = $3
-      RETURNING *`,
-      [teamId, matchId, slot]
-    );
+    const matchTeam = setOneMatchTeamSource(teamId, matchId, slot);
 
-    res.json(result.rows);
+    res.json(matchTeam);
   } catch (error) {
     console.error(error);
 

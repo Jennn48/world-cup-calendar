@@ -1,26 +1,11 @@
-import db from "../db/db.js";
+import { getAllTeams, getOneTeamById, getAllMatchesByTeam } from "../services/team.service.js";
 
 export const getTeams = async (req, res) => {
   try {
-    const result = await db.query(
-      `SELECT
-      t.id,
-      t.flag_url AS "flagUrl",
-      t.name,
-      t.code,
-      g.code AS "group"
-      FROM team t
-      JOIN group_team gt
-      ON t.id = gt.team_id
-      JOIN groups g
-      ON gt.group_id = g.id
-      ORDER BY t.id`,
-    );
-
-    res.json(result.rows);
+    const teams = await getAllTeams();
+    res.json(teams);
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       error: "Error retrieving teams",
     });
@@ -28,15 +13,15 @@ export const getTeams = async (req, res) => {
 };
 
 export const getTeamById = async (req, res) => {
-  let id = parseInt(req.params.id);
+  let id = Number(req.params.id);
 
   try {
-    const result = await db.query("SELECT * FROM team WHERE id = $1", [id]);
+    const team = await getOneTeamById(id);
 
-    if (result.rows.length) {
-      res.json(result.rows);
+    if (team.length) {
+      res.json(team);
     } else {
-      console.log(result.rows.length);
+      console.log(team.length);
       res
         .status(404)
         .json({ error: "Team not found. ID must be between 1 and 48." });
@@ -51,18 +36,15 @@ export const getTeamById = async (req, res) => {
 };
 
 export const getMatchesByTeam = async (req, res) => {
-  let id = parseInt(req.params.id);
+  let id = Number(req.params.id);
 
   try {
-    const result = await db.query(
-      "SELECT m.* FROM match m JOIN match_team mt ON m.id = mt.match_id WHERE mt.team_id = $1",
-      [id],
-    );
+    const matches = await getAllMatchesByTeam(id);
 
-    if (result.rows.length) {
-      res.json(result.rows);
+    if (matches.length) {
+      res.json(matches);
     } else {
-      console.log(result.rows.length);
+      console.log(matches.length);
       res
         .status(404)
         .json({ error: "Team not found. ID must be between 1 and 48." });

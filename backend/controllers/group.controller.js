@@ -1,11 +1,10 @@
-import db from "../db/db.js";
-import { getTeamById } from "./team.controller.js";
+import { getAllGroups, getOneGroupById, getAllTeamsByGroup } from "../services/group.service.js";
 
 export const getGroups = async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM groups ORDER BY id");
+    const groups = await getAllGroups();
 
-    res.json(result.rows);
+    res.json(groups);
   } catch (error) {
     console.error(error);
 
@@ -15,13 +14,13 @@ export const getGroups = async (req, res) => {
   }
 };
 export const getGroupById = async (req, res) => {
-  let id = parseInt(req.params.id);
+  let id = Number(req.params.id);
 
   try {
-    const result = await db.query("SELECT g.id AS group_id,g.name AS group_name,g.code AS group_code,t.id AS team_id, t.name AS team_name, t.code AS team_code, t.flag_url FROM groups g LEFT JOIN group_team gt ON g.id = gt.group_id LEFT JOIN team t ON t.id = gt.team_id WHERE g.id = $1", [id]);
+    const group = await getOneGroupById(id);
 
-    if (result.rows.length) {
-      res.json(result.rows);
+    if (group.length) {
+      res.json(group);
     } else {
       res.status(404).json({ error: "Group not found. ID must be between 1 and 12." });
     }
@@ -37,13 +36,10 @@ export const getGroupById = async (req, res) => {
 export const getTeamsByGroup = async (req, res) => {
   let id = req.params.id;
   try {
-    const result = await db.query(
-      "SELECT t.* FROM team t JOIN group_team gt ON t.id = gt.team_id WHERE gt.group_id = $1",
-      [id],
-    );
+    const teams = await getAllTeamsByGroup(id);
 
-    if (result.rows.length) {
-      res.json(result.rows);
+    if (teams.length) {
+      res.json(teams);
     } else {
       res.status(404).json({ error: "Group not found. ID must be between 1 and 12." });
     }

@@ -16,7 +16,15 @@ import {
 } from "../components/index.js";
 import resolveMatchTeams from "../utils/classificationFc.js";
 
-import { getGroups, getMatches, getTeams, getMatchTeams, setMatchScore, resetTournament, setRealTournament } from "../api/index.js";
+import {
+  getGroups,
+  getMatches,
+  getTeams,
+  getMatchTeams,
+  setMatchScore,
+  resetTournament,
+  setRealTournament,
+} from "../api/index.js";
 
 function App() {
   const [toggle, setToggle] = useState("groups");
@@ -27,10 +35,13 @@ function App() {
 
   useEffect(() => {
     (async function () {
-      const groupData = await getGroups();
-      const matchData = await getMatches();
-      const teamData = await getTeams();
-      const matchTeamsData = await getMatchTeams();
+      const [groupData, matchData, teamData, matchTeamsData] =
+        await Promise.all([
+          getGroups(),
+          getMatches(),
+          getTeams(),
+          getMatchTeams(),
+        ]);
 
       setGroups(groupData);
       setMatches(matchData);
@@ -38,7 +49,6 @@ function App() {
       setMatchTeams(matchTeamsData);
     })();
   }, []);
-
 
   if (groups.length === 0) {
     return <span className="loader"></span>;
@@ -132,7 +142,7 @@ function App() {
    * @param {number} score - New score.
    */
   async function updateMatchScore(matchId, slot, score) {
-    const data = {[`${slot}Score`]: score};
+    const data = { [`${slot}Score`]: score };
     setMatches((prevMatches) => {
       return prevMatches.map((match) =>
         match.id === matchId
@@ -146,7 +156,7 @@ function App() {
     await setMatchScore(matchId, data);
   }
 
-  function updateReact(){
+  function updateReact() {
     (async function () {
       const matchData = await getMatches();
       const matchTeamsData = await getMatchTeams();
@@ -159,7 +169,11 @@ function App() {
   return (
     <>
       <Header />
-      <Hero reset={resetTournament} set={setRealTournament} updateReact={updateReact} />
+      <Hero
+        reset={resetTournament}
+        set={setRealTournament}
+        updateReact={updateReact}
+      />
 
       <Toggle onToggle={togglePosition} />
       {toggle === "groups" ? (
