@@ -195,7 +195,7 @@ VALUES
         'MA'
     ),(
         'Escocia',
-        '/images/scotlanflag.webp',
+        'images/scotlandflag.webp',
         'UK'
     ),(
         'Haiti',

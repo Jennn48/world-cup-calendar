@@ -1,14 +1,15 @@
 import "./style.css";
+import { formatMatchDate, formatMatchTime } from "../../utils/formatDate.js";
 
-function Date(props) {
+function DateItem(props) {
   return (
     <>
       <div id="date">
-        <p className="date">{props.date}</p>
-        <p className="hour">{props.hour}</p>
+        <p className="date">{formatMatchDate(props.date)}</p>
+        <p className="hour">{formatMatchTime(props.date, props.time)}</p>
       </div>
     </>
   );
 }
 
-export default Date
+export default DateItem;

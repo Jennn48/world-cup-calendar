@@ -15,8 +15,6 @@ body {
   justify-content: center;
 }
 
-<<<<<<< HEAD
-=======
 .loader {
   --color-1: black;
   --color-2: goldenrod;
@@ -89,7 +87,6 @@ body {
 
 
 
->>>>>>> 626cae0 (feat: endpoints get sets)
 @media (max-width: 660px) {
   #root {
     width: 100vw;
