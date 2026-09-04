@@ -1,7 +1,5 @@
 diccionario.md
-program-documentation.md
 queries.sql
-tasks.md
 DataStructureDoc.md
 ER_world_cup_database.drawio
 
@@ -19,6 +17,8 @@ dist/
 dist-ssr/
 *.local
 .env
+backend/.env
+frontend/.env
 
 # Editor directories and files
 .vscode/*
