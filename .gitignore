@@ -30,3 +30,6 @@ frontend/.env
 *.njsproj
 *.sln
 *.sw?
+
+# Database
+.neon
