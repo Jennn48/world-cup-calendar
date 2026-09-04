@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getMatches() {
   try {
-    const response = await fetch(`${API_URL}/matches`);
+    const response = await fetch(`${API_URL}/api/matches`);
     if (!response.ok) {
       throw new Error("Failed to fetch matches.");
     }
@@ -15,7 +15,7 @@ export async function getMatches() {
 export async function getTeamsByMatch(matchId) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/matches/${matchId}/teams`,
+      `${API_URL}/api/matches/${matchId}/teams`,
     );
     if (!response.ok) {
       throw new Error("Failed to fetch matches.");
@@ -29,7 +29,7 @@ export async function getTeamsByMatch(matchId) {
 export async function setMatchScore(matchId, data) {  
   try {
     const response = await fetch(
-      `http://localhost:3000/api/matches/${matchId}`,
+      `${API_URL}/api/matches/${matchId}`,
       {
         method: "PATCH",
         headers: {

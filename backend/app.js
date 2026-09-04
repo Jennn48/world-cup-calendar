@@ -12,7 +12,9 @@ const PORT = 3000;
 db.connect();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: "https://world-cup-calendar-lapo.onrender.com",
+  }));
 app.use(express.json());
 
 app.get("/", async (req, res) => {

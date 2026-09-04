@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export async function resetTournament() {
   try {
-    const response = await fetch(`${API_URL}/tournament`, {
+    const response = await fetch(`${API_URL}/api/tournament`, {
       method: "POST",
     });
 
@@ -18,7 +18,7 @@ export async function resetTournament() {
 export async function setRealTournament() {
   try {
     const response = await fetch(
-      "http://localhost:3000/api/tournament/real",
+      `${API_URL}/api/tournament/real`,
       {
         method: "POST",
       }
