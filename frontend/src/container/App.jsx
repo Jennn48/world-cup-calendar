@@ -76,7 +76,7 @@ function App() {
     matchTeams,
   );
 
-  const resolvedMatchTeams = resolveMatchTeams(
+  const resolvedMatchTeams = await resolveMatchTeams(
     standings,
     groups,
     teams,

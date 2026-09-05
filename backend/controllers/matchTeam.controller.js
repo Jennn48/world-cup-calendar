@@ -19,7 +19,7 @@ export const setMatchTeamSource = async (req, res) => {
   let teamId = Number(req.body.teamId);
 
   try {
-    const matchTeam = setOneMatchTeamSource(teamId, matchId, slot);
+    const matchTeam = await setOneMatchTeamSource(teamId, matchId, slot);
 
     res.json(matchTeam);
   } catch (error) {

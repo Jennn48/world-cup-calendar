@@ -33,15 +33,32 @@ export const reset = async () => {
 export const set = async () => {
   await db.query("BEGIN");
 
-  for (const match of realResults) {
-    await db.query(
-      `UPDATE match 
-        SET home_score = $1,
-            away_score = $2
-        WHERE id = $3`,
-      [match.homeScore, match.awayScore, match.matchId],
-    );
-  }
+  const values = realResults
+      .map(
+        (_, index) =>
+          `($${index * 3 + 1}::integer, $${index * 3 + 2}::integer, $${index * 3 + 3}::integer)`
+      )
+      .join(", ");
 
-  await db.query("COMMIT");
+    const params = realResults.flatMap((match) => [
+      match.homeScore,
+      match.awayScore,
+      match.matchId,
+    ]);
+
+    await db.query(
+      `
+      UPDATE match AS m
+      SET
+        home_score = v.home_score,
+        away_score = v.away_score
+      FROM (
+        VALUES ${values}
+      ) AS v(home_score, away_score, id)
+      WHERE m.id = v.id
+      `,
+      params
+    );
+
+    await db.query("COMMIT");
 };
