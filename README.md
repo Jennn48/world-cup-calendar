@@ -1,4 +1,6 @@
+
 # FIFA World Cup 2026 Calendar
+
 
 Web application for organizing the **FIFA World Cup 2026** tournament, including the group stage, standings, match results, and knockout-stage bracket.
 
@@ -20,7 +22,6 @@ Hopefully, FIFA will eventually adopt a simpler and more transparent qualificati
 - 🏆 Group-stage standings.
 - 🥇 Automatic qualification of teams from the group stage.
 - 🔀 Dynamic knockout-stage bracket.
-- ⚛️ Component-based React architecture.
 
 ---
 
@@ -32,6 +33,12 @@ Hopefully, FIFA will eventually adopt a simpler and more transparent qualificati
 - **React**
 - **HTML5**
 - **CSS3**
+
+### Backend
+
+- **Node.js**
+- **Express**
+- **PostgreSQL**
 
 ### Development Tools
 
@@ -52,7 +59,7 @@ git clone [World Cup Calendar](https://github.com/Jennn48/world-cup-calendar.git
 Navigate to the project directory:
 
 ```bash
-cd world-cup-calendar-react
+cd world-cup-calendar-react/frontend
 ```
 
 Install the dependencies:
@@ -66,6 +73,12 @@ Start the development server:
 ```bash
 npm run dev
 ```
+
+Start the backend server:
+
+```bash
+npm start
+```
 ---
 
 ## Project Structure
@@ -73,28 +86,57 @@ npm run dev
 The project is organized into React components, tournament data, and reusable utility functions.
 
 ```text
-──src
-    │   main.jsx
-    ├───components
-    │   ├───Brackets
-    │   ├───Groups
-    │   ├───Header
-    │   └───Matches
-    ├───container
-    │       App.css
-    │       App.jsx
-    ├───data
-    │       groups.js
-    │       index.js
-    │       matches.js
-    │       matchTeams.js
-    │       teams.js
-    └───utils
-            anexoC.js
-            auxiliaryFunctions.js
-            bracket.js
-            classificationFc.js
-            standings.js
+├── backend
+│   ├── controllers
+│   │   ├── group.controller.js
+│   │   ├── match.controller.js
+│   │   ├── matchTeam.controller.js
+│   │   ├── team.controller.js
+│   │   └── tournament.controller.js
+│   ├── data
+│   │   └── realTournament.js
+│   ├── db
+│   │   └── db.js
+│   ├── routes
+│   │   ├── group.routes.js
+│   │   ├── match.routes.js
+│   │   ├── matchTeam.routes.js
+│   │   ├── team.routes.js
+│   │   └── tournament.routes.js
+│   ├── services
+│   │    ├── group.service.js
+│   │    ├── match.service.js
+│   │    ├── matchTeam.service.js
+│   │    ├── team.service.js
+│   │    └── tournament.service.js
+│   │    
+|   └── app.js
+└── frontend
+    ├── public
+    │   └── images
+    │       └── app
+    └── src
+        ├── api
+        │   ├── groups.js
+        │   ├── matches.js
+        │   ├── matchTeams.js
+        │   ├── teams.js
+        │   └── tournament.js
+        ├── components
+        │   ├── Brackets
+        │   ├── Groups
+        │   ├── Header
+        ├── utils
+        │   └── Matches
+        ├── container
+        │   └── App.js
+        │       ├── anexoC.js
+        │       ├── auxiliaryFunctions.js
+        │       ├── bracket.js
+        │       ├── classificationFc.js
+        │       ├── formatdate.js
+        │       └── standings.js
+        └── main.js
 ```
 
 ---
@@ -222,6 +264,11 @@ Winner
  ↓
 Team
 ```
+---
+
+# To-do
+- **Predictions**
+
 ---
 
 # License
