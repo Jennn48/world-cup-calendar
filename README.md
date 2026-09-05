@@ -1,6 +1,16 @@
+<p align="center">
+  <img src="frontend/public/images/app/bracket.jpg" width="700" alt="Knockout stage bracket" />
+</p>
+
+<p align="center">
+  <img src="frontend/public/images/app/groups.jpg" width="700" alt="Group standings" />
+</p>
+
+<p align="center">
+  <img src="frontend/public/images/app/matches.jpg" width="700" alt="World Cup matches" />
+</p>
 
 # FIFA World Cup 2026 Calendar
-
 
 Web application for organizing the **FIFA World Cup 2026** tournament, including the group stage, standings, match results, and knockout-stage bracket.
 
@@ -53,13 +63,13 @@ Hopefully, FIFA will eventually adopt a simpler and more transparent qualificati
 Clone the repository:
 
 ```bash
-git clone [World Cup Calendar](https://github.com/Jennn48/world-cup-calendar.git)
+git clone https://github.com/Jennn48/world-cup-calendar.git
 ```
 
 Navigate to the project directory:
 
 ```bash
-cd world-cup-calendar-react/frontend
+cd world-cup-calendar/frontend
 ```
 
 Install the dependencies:
@@ -127,15 +137,15 @@ The project is organized into React components, tournament data, and reusable ut
         │   ├── Groups
         │   ├── Header
         ├── utils
-        │   └── Matches
+        │   ├── anexoC.js
+        │   ├── auxiliaryFunctions.js
+        │   ├── bracket.js
+        │   ├── classificationFc.js
+        │   ├── formatDate.js
+        │   └── standings.js
         ├── container
         │   └── App.js
-        │       ├── anexoC.js
-        │       ├── auxiliaryFunctions.js
-        │       ├── bracket.js
-        │       ├── classificationFc.js
-        │       ├── formatdate.js
-        │       └── standings.js
+        |
         └── main.js
 ```
 
@@ -266,8 +276,10 @@ Team
 ```
 ---
 
-# To-do
-- **Predictions**
+## Future Improvements
+
+- Add match predictions.
+- Support penalty shootouts when defining knockout match winners.
 
 ---
 
