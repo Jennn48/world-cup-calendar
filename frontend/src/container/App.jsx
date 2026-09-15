@@ -50,10 +50,6 @@ function App() {
     })();
   }, []);
 
-  if (groups.length === 0) {
-    return <span className="loader"></span>;
-  }
-
   /**
    * A team row in the standings table.
    *
@@ -70,20 +66,31 @@ function App() {
    * @property {number} e - Draws.
    * @property {number} ptos - Points.
    */
-  let standings = calculateStandings(
+  let standings = !matches || matches.length === 0 ? [] : calculateStandings(
     matches.filter((m) => m.round === "GROUP_STAGE"),
     teams,
     matchTeams,
   );
 
-  const resolvedMatchTeams = await resolveMatchTeams(
-    standings,
-    groups,
-    teams,
-    matches,
-    matchTeams,
-  );
+  let resolvedMatchTeams;
+  useEffect(() => {
+    if (groups.length === 0) {
+      return;
+    }
+    (async function () {
+      resolvedMatchTeams = await resolveMatchTeams(
+        standings,
+        groups,
+        teams,
+        matches,
+        matchTeams,
+      );
+    })();
+  }, [standings, groups, teams, matches, matchTeams]);
 
+  if (groups.length === 0) {
+    return <span className="loader"></span>;
+  }
   /**
    * A resolved match prepared for bracket rendering.
    *
