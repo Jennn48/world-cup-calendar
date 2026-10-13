@@ -76,21 +76,13 @@ function App() {
   );
 console.log(standings, "stand");
 
-  let resolvedMatchTeams = [];
-  useEffect(() => {
-    if (groups.length === 0) {
-      return;
-    }
-    (async function () {
-      resolvedMatchTeams = await resolveMatchTeams(
-        standings,
-        groups,
-        teams,
-        matches,
-        matchTeams,
-      );
-    })();
-  }, [standings, groups, teams, matches, matchTeams]);
+  const resolvedMatchTeams = resolveMatchTeams(
+    standings,
+    groups,
+    teams,
+    matches,
+    matchTeams,
+  );
 
 console.log(resolvedMatchTeams, "resolve");
 

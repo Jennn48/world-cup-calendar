@@ -58,7 +58,7 @@ function getKeyAnexoCSorted(third, teams) {
  * @param {MatchTeams[]} matchTeams - Relationship between macth and participant teams.
  * @returns {MatchTeams[]} A copy of MatchTeams with teamId resolved in order of source.
  */
-async function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
+function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
   if (groups.length > 0) {
     //Encontrar los 12 third
     let resolvedMatchTeams = matchTeams.map((mt) => ({ ...mt }));
@@ -80,10 +80,8 @@ async function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
     let thirdCruces2 = anexoC[keyAnexoCSorted];
 
     //Sustituir en matchTeams teamId by source
-    for(const mt of resolvedMatchTeams){
-      if (mt.source === null) continue;
-      let team;
-      
+    resolvedMatchTeams.forEach(async (mt) => {
+      if (mt.source === null) return;
       if (mt.source === "third") {
         let otherSource = resolvedMatchTeams.find(
           (m) => m.matchId === mt.matchId && m.slot !== mt.slot,
@@ -91,7 +89,7 @@ async function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
         let mainSource = thirdCruces2
           .find((c) => c.includes(otherSource))
           .slice(0, 2);
-        team = getTeamBySource(
+        let team = getTeamBySource(
           mainSource,
           teams,
           table,
@@ -106,7 +104,7 @@ async function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
           await setMatchTeamSource(mt.matchId, mt.slot, mt.teamId);
         }
       } else {
-        team = getTeamBySource(
+        let team = getTeamBySource(
           mt.source,
           teams,
           table,
@@ -121,7 +119,7 @@ async function resolveMatchTeams(table, groups, teams, matches, matchTeams) {
           await setMatchTeamSource(mt.matchId, mt.slot, mt.teamId);
         }
       }
-    }
+    });
 
     return resolvedMatchTeams;
   } else return [];
