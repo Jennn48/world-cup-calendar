@@ -29,6 +29,9 @@ function Matches(props) {
       title: "Partido final",
     },
   ];
+
+  console.log(props.matchTeams,"mthe");
+  
   return (
     <>
       <section className="matches">

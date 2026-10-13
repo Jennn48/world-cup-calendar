@@ -13,7 +13,8 @@ db.connect();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "https://world-cup-calendar-lapo.onrender.com",
+    // origin: "https://world-cup-calendar-lapo.onrender.com",
+    origin: "http://localhost:5173",
   }));
 app.use(express.json());
 

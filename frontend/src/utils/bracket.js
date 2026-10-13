@@ -11,6 +11,8 @@
   */
  function getBracketData(matches, matchTeams, teams) {
     return matches.map((match) => {
+      console.log(teams, "m");
+      
       let teamSlots = getMatchTeams(match, matchTeams, teams);
       
       let homeTeam = getTeamById(teams, teamSlots.home.teamId);

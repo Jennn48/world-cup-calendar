@@ -42,17 +42,14 @@ function App() {
           getTeams(),
           getMatchTeams(),
         ]);
-
+        console.log(groupData, "lala");
+        
       setGroups(groupData);
       setMatches(matchData);
       setTeams(teamData);
       setMatchTeams(matchTeamsData);
     })();
   }, []);
-
-  if (groups.length === 0) {
-    return <span className="loader"></span>;
-  }
 
   /**
    * A team row in the standings table.
@@ -70,20 +67,39 @@ function App() {
    * @property {number} e - Draws.
    * @property {number} ptos - Points.
    */
-  let standings = calculateStandings(
+
+  console.log(matches, "hey")
+  let standings = !matches || matches.length === 0 ? [] : calculateStandings(
     matches.filter((m) => m.round === "GROUP_STAGE"),
     teams,
     matchTeams,
   );
+console.log(standings, "stand");
 
-  const resolvedMatchTeams = await resolveMatchTeams(
-    standings,
-    groups,
-    teams,
-    matches,
-    matchTeams,
-  );
+  let resolvedMatchTeams = [];
+  useEffect(() => {
+    if (groups.length === 0) {
+      return;
+    }
+    (async function () {
+      resolvedMatchTeams = await resolveMatchTeams(
+        standings,
+        groups,
+        teams,
+        matches,
+        matchTeams,
+      );
+    })();
+  }, [standings, groups, teams, matches, matchTeams]);
 
+console.log(resolvedMatchTeams, "resolve");
+
+
+  if (groups.length === 0) {
+    return <span className="loader"></span>;
+  }
+  
+  console.log(resolvedMatchTeams, "res")
   /**
    * A resolved match prepared for bracket rendering.
    *
@@ -92,7 +108,8 @@ function App() {
    * @property {Team|undefined} homeTeam - Home team information.
    * @property {Team|undefined} awayTeam - Away team information.
    */
-  const bracketData = {
+  
+  const bracketData = resolvedMatchTeams.length ? {
     round16: getBracketData(
       matches.filter((m) => m.round === "ROUND_OF_32") ?? [],
       resolvedMatchTeams,
@@ -118,8 +135,10 @@ function App() {
       resolvedMatchTeams,
       teams,
     ),
-  };
+  } : [];
 
+  console.log(bracketData, "brack");
+  
   const classifiedGroups = groups.map((group) => ({
     grupo: group.code,
     equipos: calculatePosition(getTeamsByGroup(teams, group.code), standings),
@@ -176,6 +195,7 @@ function App() {
       />
 
       <Toggle onToggle={togglePosition} />
+
       {toggle === "groups" ? (
         <Groups table={standings} groups={classifiedGroups} />
       ) : toggle === "matches" ? (
