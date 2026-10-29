@@ -5,8 +5,8 @@ function MatchBracket(props) {
     <>
       <div className="match">
         <p className="date">{formatMatchDate(props.date).split(",")[1]}</p>
-        <img src={props.flagLocal} alt="-flag" />
-        <img src={props.flagAway} alt="-flag" />
+        <img src={props.flagLocal} alt="Flag of the local team" />
+        <img src={props.flagAway} alt="Flag of the away team" />
       </div>
     </>
   );

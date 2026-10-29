@@ -15,7 +15,7 @@ function TeamCard(props) {
   return (
     <>
       <div className="team">
-        <img src={props.flagSrc} alt={`${props.name}-flag`} />
+        <img src={props.flagSrc} alt={`Flag of ${props.name}`} />
         <p>{props.name}</p>
         {editing ? (
           <input

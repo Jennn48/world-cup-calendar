@@ -8,7 +8,7 @@ function Team(props) {
         <td className="team">
           <p className="num">{props.position}</p>
           <p className="flag">
-            <img src={props.flag} />
+            <img src={props.flag} alt={`Flag of ${props.name}`} />
           </p>
           <p className="name">
             <span>{props.name}</span>
